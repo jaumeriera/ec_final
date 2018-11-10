@@ -8,7 +8,7 @@
 * -----------------------------------------------------------------------------
 SC_ENABLE_DB     MACRO
 * Enable double buffer
-* Modifies: D0, D1
+* Modifies  : D0, D1
 * -----------------------------------------------------------------------------
         move.b  #17, D1
         move.b  #92, D0
@@ -41,9 +41,9 @@ SC_SET_WINDOWED MACRO
 ; DRAW MACROS
 ; =============================================================================
 * -----------------------------------------------------------------------------
-SC_SET_PEN  MACRO
+DW_SET_PEN  MACRO
 * Sets the drawing pen color
-* Parameters:   \1 Pen color in format $00BBGGRR
+* Parameters: \1 Pen color in format $00BBGGRR
 * -----------------------------------------------------------------------------
         move.l  #\1, D1
         move.b  #80, D0
@@ -51,14 +51,26 @@ SC_SET_PEN  MACRO
         ENDM
 
 * -----------------------------------------------------------------------------
-SC_SET_FILL     MACRO
+DW_SET_FILL     MACRO
 * Sets the drawing fill color
-* Parameters:   \1 fill color in format $00BBGGRR
+* Parameters: \1 fill color in format $00BBGGRR
 * ----------------------------------------------------------
         move.l  #\1, D1
         move.b  #81, D0
         trap    #15
         ENDM
+        
+* -----------------------------------------------------------------------------
+DW_POS_TEXT     MACRO
+* Wrapper to tect positioning from TRAP 15
+* Parameters: \1: X position, 
+*             \2: Y position
+* Modifies  : D0,D1
+* -----------------------------------------------------------------------------
+            MOVE.W  #\1<<8|\2, D1
+            MOVE.B  #11,D0
+            TRAP    #15
+            ENDM
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
