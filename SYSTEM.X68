@@ -30,19 +30,27 @@ SCRINIT
 ; -----------------------------------------------------------------------------
             ; TO DO:
             ; - DISABLE INTS (SET INT BITS IN SR TO 111)
+            INT_SET_LEVEL 7
             ; - DISABLE ALL AUTO-IRQ (SEE TRAP #15 TASK 32)
             ; - INSTALL SCRUPD INTO TRAP SCRTRAP
             ; - SET RESOLUTION TO SCRWIDTH X SCRHEIGHT
+            SC_SET_RES SCRWIDTH SCRHEIGH
             ; - SET WINDOWED MODE
+            SC_SET_WINDOWED
             ; - CLEAR VISIBLE BUFFER
+            SC_CLEAR
             ; - ENABLE DOUBLE BUFFER
+            SC_ENABLE_DB
             ; - CLEAR HIDDEN BUFFER
+            SC_SWAP_DB
+            SC_CLEAR
             ; - INSTALL SCRISR FOR IRQ SCRIRQ (IRQ INTERRUPT VECTOR BEGINS
             ;   AT $60. INSTALLATION IS SIMILAR TO TRAP INSTALLATION)
             ; - ENABLE AUTO-IRQ EVERY SCRTIM MS FOR IRQ SCRIRQ (SEE TRAP #15
             ;   TASK 32)
             ; - CLEAR SCRINTCT AND SCRCYCCT
             ; - ENABLE INTS (SET INT BITS IN SR TO 000)
+            INT_SET_LEVEL 0
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -220,6 +228,7 @@ DMMFREE
             CLR.W   (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
+
 
 
 
