@@ -2,6 +2,8 @@
 ; SYSTEM MANAGEMENT (SYSTEM CODE)
 ; =============================================================================
 
+;PARA SABER CUAL HA CAMBIADO KDRREAD KBDVAL NOT DE UNO AND CON EL OTRO
+
 ; -----------------------------------------------------------------------------
 SYSINIT
 ; INITIALIZES THE SYSTEM
@@ -31,8 +33,8 @@ SCRINIT
             ; TO DO:
             ; - DISABLE INTS (SET INT BITS IN SR TO 111)
             INT_SET_LEVEL 7
-            ; - DISABLE ALL AUTO-IRQ (SEE TRAP #15 TASK 32)
             ; - INSTALL SCRUPD INTO TRAP SCRTRAP
+            MOVE.L  #SCRUPD,($80+SCRTRAP*4)
             ; - SET RESOLUTION TO SCRWIDTH X SCRHEIGHT
             SC_SET_RES SCRWIDTH SCRHEIGH
             ; - SET WINDOWED MODE
@@ -46,9 +48,10 @@ SCRINIT
             SC_CLEAR
             ; - INSTALL SCRISR FOR IRQ SCRIRQ (IRQ INTERRUPT VECTOR BEGINS
             ;   AT $60. INSTALLATION IS SIMILAR TO TRAP INSTALLATION)
-            ; - ENABLE AUTO-IRQ EVERY SCRTIM MS FOR IRQ SCRIRQ (SEE TRAP #15
-            ;   TASK 32)
+            MOVE.L  #SCRISR,($60+SCRIRQ*4)
             ; - CLEAR SCRINTCT AND SCRCYCCT
+            CLR.B   (SCRINTCT)
+            CLR.B   (SCRCYCCT)
             ; - ENABLE INTS (SET INT BITS IN SR TO 000)
             INT_SET_LEVEL 0
             RTS
@@ -72,7 +75,9 @@ SCRUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            ; TO DO: UPDATE DOUBLE BUFFER AND CLEAR HIDDEN BUFFER
+            ; UPDATE DOUBLE BUFFER AND CLEAR HIDDEN BUFFER
+            SC_SWAP_DB
+            SC_CLEAR
             RTE
 
 ; =============================================================================
@@ -228,6 +233,7 @@ DMMFREE
             CLR.W   (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
+
 
 
 

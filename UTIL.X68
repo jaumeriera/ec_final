@@ -85,7 +85,7 @@ DW_POS_TEXT     MACRO
 * Modifies  : D0,D1
 * -----------------------------------------------------------------------------
             MOVE.W  #\1<<8|\2, D1
-            MOVE.B  #11,D0
+            MOVE.B  #11, D0
             TRAP    #15
             ENDM
             
@@ -97,8 +97,15 @@ DW_POS_TEXT     MACRO
 INT_SET_LEVEL   MACRO
 * Set interruption bits on SR in order to set the interruption level
 * Parameters: \1: interruption level accepted, 
-* Modifies  : ?????
+* Modifies  : D0
 * -----------------------------------------------------------------------------
+            MOVE.W SR, D0
+            ANDI.W #$F8FF, D0
+            ORI.W   #(\1<<8)&$700, D0
+            MOVE.W D0, SR
+            ENDM
+            
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
