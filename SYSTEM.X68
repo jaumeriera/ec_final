@@ -30,13 +30,15 @@ SCRINIT
 ; OUTPUT   - NONE
 ; MODIFIES - D0,D1,D2,D3
 ; -----------------------------------------------------------------------------
-            ; TO DO:
+            MOVEM.L D0-D3,-(A7)
+            ; - DISABLE ALL AUTO-IRQ
+            INT_DIS_AUTO_IRQ
             ; - DISABLE INTS (SET INT BITS IN SR TO 111)
             INT_SET_LEVEL 7
             ; - INSTALL SCRUPD INTO TRAP SCRTRAP
             MOVE.L  #SCRUPD,($80+SCRTRAP*4)
             ; - SET RESOLUTION TO SCRWIDTH X SCRHEIGHT
-            SC_SET_RES SCRWIDTH SCRHEIGH
+            SC_SET_RES SCRWIDTH, SCRHEIGH
             ; - SET WINDOWED MODE
             SC_SET_WINDOWED
             ; - CLEAR VISIBLE BUFFER
@@ -46,14 +48,18 @@ SCRINIT
             ; - CLEAR HIDDEN BUFFER
             SC_SWAP_DB
             SC_CLEAR
+            SC_SWAP_DB
             ; - INSTALL SCRISR FOR IRQ SCRIRQ (IRQ INTERRUPT VECTOR BEGINS
             ;   AT $60. INSTALLATION IS SIMILAR TO TRAP INSTALLATION)
             MOVE.L  #SCRISR,($60+SCRIRQ*4)
             ; - CLEAR SCRINTCT AND SCRCYCCT
             CLR.B   (SCRINTCT)
             CLR.B   (SCRCYCCT)
+            ; - ENABLE ALL AUTO IRQ
+            INT_ENA_AUTO_IRQ
             ; - ENABLE INTS (SET INT BITS IN SR TO 000)
             INT_SET_LEVEL 0
+            MOVEM.L (A7)+, D0-D3
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -106,7 +112,25 @@ KBDREAD
 ; OUTPUT   - (KBDVAL) AND (KBDEDGE)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            ; TO DO: UPDATE KBDVAL AND KBDEDGE
+            MOVEM.L D0-D7, -(A7)
+            
+            ; LOAD MOVEMENT KEYS         
+            KBD_LOAD_KEYS KBDLEFT, KBDRIGHT, KBDUP, KBDDOWN
+            ; UPDATE KBDVAL AND KBDEDGE DEPENDING ON KEY STATE
+            KBD_UPDT_VARS 24, KBDMSKLF
+            KBD_UPDT_VARS 16, KBDMSKRT
+            KBD_UPDT_VARS 8, KBDMSKUP
+            KBD_UPDT_VARS 0, KBDMSKDN
+
+            ; LOAD OTHER KEYS
+            KBD_LOAD_KEYS KBDFIRE1, KBDFIRE2, KBDFIRE3, KBDPAUSE
+            ; UPDATE KBDVAL AND KBDEDGE DEPENDING ON KEY STATE
+            KBD_UPDT_VARS 24, KBDFIRE1
+            KBD_UPDT_VARS 16, KBDFIRE2
+            KBD_UPDT_VARS 8, KBDFIRE3
+            KBD_UPDT_VARS 0, KBDPAUSE
+
+            MOVEM.L (A7)+, D0-D7
             RTE
 
 ; =============================================================================
@@ -233,6 +257,9 @@ DMMFREE
             CLR.W   (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
+
+
+
 
 
 
