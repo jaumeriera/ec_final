@@ -162,9 +162,9 @@ KBD_UPDT_VARS   MACRO
             ORI.B   #\2, (KBDEDGE)
             ENDI            
             ENDI
+            IF <EQ> THEN
             MOVE.B #\2, D0
             NOT.B D0
-            IF <EQ> THEN
             AND.B   D0, (KBDEDGE)
             AND.B   D0, (KBDVAL)
             ENDI

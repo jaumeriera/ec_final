@@ -52,11 +52,16 @@ SCRINIT
             ; - INSTALL SCRISR FOR IRQ SCRIRQ (IRQ INTERRUPT VECTOR BEGINS
             ;   AT $60. INSTALLATION IS SIMILAR TO TRAP INSTALLATION)
             MOVE.L  #SCRISR,($60+SCRIRQ*4)
+            MOVE.B  #32, D0
+            MOVE.B  #6, D1
+            MOVE.B  #$81, D2
+            MOVE.L  #SCRTIM, D3
+            TRAP    #15
             ; - CLEAR SCRINTCT AND SCRCYCCT
             CLR.B   (SCRINTCT)
             CLR.B   (SCRCYCCT)
             ; - ENABLE ALL AUTO IRQ
-            INT_ENA_AUTO_IRQ
+            ;INT_ENA_AUTO_IRQ
             ; - ENABLE INTS (SET INT BITS IN SR TO 000)
             INT_SET_LEVEL 0
             MOVEM.L (A7)+, D0-D3
@@ -125,10 +130,10 @@ KBDREAD
             ; LOAD OTHER KEYS
             KBD_LOAD_KEYS KBDFIRE1, KBDFIRE2, KBDFIRE3, KBDPAUSE
             ; UPDATE KBDVAL AND KBDEDGE DEPENDING ON KEY STATE
-            KBD_UPDT_VARS 24, KBDFIRE1
-            KBD_UPDT_VARS 16, KBDFIRE2
-            KBD_UPDT_VARS 8, KBDFIRE3
-            KBD_UPDT_VARS 0, KBDPAUSE
+            KBD_UPDT_VARS 24, KBDMSKF1
+            KBD_UPDT_VARS 16, KBDMSKF2
+            KBD_UPDT_VARS 8, KBDMSKF3
+            KBD_UPDT_VARS 0, KBDMSKPS
 
             MOVEM.L (A7)+, D0-D7
             RTE
@@ -257,6 +262,7 @@ DMMFREE
             CLR.W   (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
+
 
 
 
