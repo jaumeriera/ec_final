@@ -2,4 +2,7 @@
 ; GAME VARS
 ; =============================================================================
 
-; TO DO: DECLARE GAME VARIABLES HERE.
+; --- PLAYER VARS -------------------------------------------------------------
+
+PLYIDX      DC.B    9       ; INDEX FOR PLAYER ANGLE
+            DC.W    0

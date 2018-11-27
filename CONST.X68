@@ -66,6 +66,15 @@ GOVSTRX     EQU     35                      ; TITLE X COORDINATE
 GOVSTRY     EQU     15                      ; TITLE Y COORDINATE
 GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
+; --- PLAYER CONSTANTS --------------------------------------------------------
+
+; Angle constants:
+; X = less significative byte
+; Y = most significative byte
+PLYANG      DC.W    $0108 , $0207 , $0306 , $0405 , $0504 , $0603 , $0702
+            DC.W    $0801 , $0900 , $08FF , $07FE , $06FD , $05FC , $04FB
+            DC.W    $03FA , $02F9 , $01F8
+
 ; --- SELECT BALL STATE CONSTANTS ---------------------------------------------
 
 ; TODO
