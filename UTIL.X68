@@ -81,16 +81,42 @@ DW_SET_FILL     MACRO
         
 * -----------------------------------------------------------------------------
 DW_POS_TEXT     MACRO
-* Wrapper to tect positioning from TRAP 15
+* Wrapper to text positioning from TRAP 15
 * Parameters: \1: X position, 
 *             \2: Y position
 * Modifies  : D0,D1
 * -----------------------------------------------------------------------------
-            MOVE.W  #\1<<8|\2, D1
-            MOVE.B  #11, D0
-            TRAP    #15
-            ENDM
-            
+        MOVE.W  #\1<<8|\2, D1
+        MOVE.B  #11, D0
+        TRAP    #15
+        ENDM
+
+* -----------------------------------------------------------------------------
+DW_POS_CURS     MACRO
+* Wrapper to cursor positioning from TRAP 15
+* Parameters: \1: X position, 
+*             \2: Y position
+* Modifies  : D0,D1,D2
+* -----------------------------------------------------------------------------
+        MOVE.W  #86, D0
+        MOVE.W  #\1, D1
+        MOVE.W  #\2, D2
+        TRAP    #15
+        ENDM
+
+* -----------------------------------------------------------------------------
+DW_LINE_XY     MACRO
+* Wrapper to cursor positioning from TRAP 15
+* Parameters: \1: X position, 
+*             \2: Y position
+* Modifies  : D0,D1,D2
+* -----------------------------------------------------------------------------
+        MOVE.W #85, D0
+        MOVE.W #\1, D1
+        MOVE.W #\2, D2
+        TRAP #15
+        ENDM
+        
 ; =============================================================================
 ; INTERRUPTION MACROS
 ; =============================================================================
@@ -101,31 +127,31 @@ INT_SET_LEVEL   MACRO
 * Parameters: \1: interruption level accepted, 
 * Modifies  : D0
 * -----------------------------------------------------------------------------
-            MOVE.W SR, D0
-            ANDI.W #$F8FF, D0
-            ORI.W   #(\1<<8)&$700, D0
-            MOVE.W D0, SR
-            ENDM
+        MOVE.W SR, D0
+        ANDI.W #$F8FF, D0
+        ORI.W   #(\1<<8)&$700, D0
+        MOVE.W D0, SR
+        ENDM
 
 * -----------------------------------------------------------------------------
 INT_DIS_AUTO_IRQ   MACRO
 * Disable all auto interruptions 
 * Modifies  : D0, D2
 * -----------------------------------------------------------------------------
-            MOVE.B  #00,D2
-            MOVE.B  #32,D0
-            TRAP    #15
-            ENDM
+        MOVE.B  #00,D2
+        MOVE.B  #32,D0
+        TRAP    #15
+        ENDM
 
 * -----------------------------------------------------------------------------
 INT_ENA_AUTO_IRQ   MACRO
 * Enable all auto interruptions 
 * Modifies  : D0, D1
 * -----------------------------------------------------------------------------
-            MOVE.B  #6,D1
-            MOVE.B  #32,D0
-            TRAP    #15
-            ENDM
+        MOVE.B  #6,D1
+        MOVE.B  #32,D0
+        TRAP    #15
+        ENDM
 ; =============================================================================
 ; KEYBOARD MACROS
 ; =============================================================================
@@ -139,13 +165,13 @@ KBD_LOAD_KEYS   MACRO
 *             \4: key 4
 * Modifies  : D0, D1
 * -----------------------------------------------------------------------------
-             MOVE.W #19, D0
-             MOVE.L #\1<<24, D1
-             ADD.L  #\2<<16, D1
-             ADD.L  #\3<<8, D1
-             ADD.L  #\4, D1
-             TRAP #15
-             ENDM
+        MOVE.W #19, D0
+        MOVE.L #\1<<24, D1
+        ADD.L  #\2<<16, D1
+        ADD.L  #\3<<8, D1
+        ADD.L  #\4, D1
+        TRAP #15
+        ENDM
 
 * -----------------------------------------------------------------------------
 KBD_UPDT_VARS   MACRO
@@ -154,21 +180,38 @@ KBD_UPDT_VARS   MACRO
 *             \2: key mask,
 * Modifies  : D0, D1, KBDVAL, KBDEDGE
 * -----------------------------------------------------------------------------
-            BTST.L  #\1 ,D1
-            IF <NE> THEN
-            ORI.B   #\2, (KBDVAL)
-            BTST.B  #\2, (KBDEDGE)
-            IF <EQ> THEN
-            ORI.B   #\2, (KBDEDGE)
-            ENDI            
-            ENDI
-            IF <EQ> THEN
-            MOVE.B #\2, D0
-            NOT.B D0
-            AND.B   D0, (KBDEDGE)
-            AND.B   D0, (KBDVAL)
-            ENDI
-            ENDM
+        BTST.L  #\1 ,D1
+        IF <NE> THEN
+        ORI.B   #\2, (KBDVAL)
+        BTST.B  #\2, (KBDEDGE)
+        IF <EQ> THEN
+        ORI.B   #\2, (KBDEDGE)
+        ENDI            
+        ENDI
+        IF <EQ> THEN
+        MOVE.B #\2, D0
+        NOT.B D0
+        AND.B   D0, (KBDEDGE)
+        AND.B   D0, (KBDVAL)
+        ENDI
+        ENDM
+
+; =============================================================================
+; UTILITIES
+; =============================================================================
+
+* -----------------------------------------------------------------------------
+BYTE_ABSOLUTE_VALUE   MACRO
+* Calculate the absolute value of WORD
+* Parameters : D0
+* Modifies  : D0
+* -----------------------------------------------------------------------------
+        TST.B D0
+        BPL .END
+        NEG.B D0
+.END:
+        ENDM
+
 
             
 

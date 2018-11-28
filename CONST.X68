@@ -21,7 +21,6 @@ HUBTYPE     EQU     4                       ; HUB TYPE
 
 GENBLSPD    EQU     10                      ; GENERIC BALL SPEED IN PIXELS
 GENCOLOR    EQU     $000000FF               ; GENERIC BALL COLOR
-GENSTRNB    EQU     1                       ; GENERIC NUM BALLS START
 
 ; --- SMALL BALL CONSTANTS ---------------------------------------------------
 
@@ -50,6 +49,17 @@ HUBCOLOR    EQU     $00FFFFFF               ; HUB FONT COLOR
 HUBSCORX    EQU     2                       ; HUB SCORE X COORDINATE
 HUBSCORY    EQU     1                       ; HUB SCORE Y COORDINATE
 HUBFLRYH    EQU     SCRHEIGH                ; HUB FLOOR LINE Y COORDINATE
+; Angle constants:
+; X = less significative byte
+; Y = most significative byte
+HUBANG      DC.W    $F8FF , $F9FE , $FAFD , $FBFC , $FCFB , $FDFA , $FEF9
+            DC.W    $FFF8 , $F700 , $01F8 , $02F9 , $03FA , $04FB , $05FC
+            DC.W    $06FD , $07FE , $08FF
+
+
+HUBSTRIDX   EQU     8                       ; START PLAYER INDEX
+HUBSTNBAL   EQU     1                       ; GENERIC NUM BALLS START
+HUBSCRTXT   DC.B    'SCORE: ',0             ; GENERIC SCORE TEXT
 
 ; --- INTRO STATE RELATED CONSTANTS -------------------------------------------
 
@@ -68,12 +78,6 @@ GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
 ; --- PLAYER CONSTANTS --------------------------------------------------------
 
-; Angle constants:
-; X = less significative byte
-; Y = most significative byte
-PLYANG      DC.W    $0108 , $0207 , $0306 , $0405 , $0504 , $0603 , $0702
-            DC.W    $0801 , $0900 , $08FF , $07FE , $06FD , $05FC , $04FB
-            DC.W    $03FA , $02F9 , $01F8
 
 ; --- SELECT BALL STATE CONSTANTS ---------------------------------------------
 
