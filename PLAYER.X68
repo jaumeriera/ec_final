@@ -18,12 +18,12 @@ PLRINIT
 
 ; -----------------------------------------------------------------------------
 PLRUPD
-; UPDATES THE PLAYER MOTION
 ; INPUT    - NONE (ACCESSES KBDVAL AND KBDEDGE)
 ; OUTPUT   - NONE (MODIFIES PLAYER DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
         ; TODO
+        MOVE.W D0, D0
         RTS 
 
 ; -----------------------------------------------------------------------------
@@ -37,12 +37,9 @@ PLRPLOT
         ; SET COLORS
         DW_SET_PEN HUBCOLOR
         ; MOVE CURSOR TO CURRENT PLAYER POSITION
-        DW_POS_CURS PLYXPOS, 0
+        DW_POS_CURS (PLYXPOS), #SCRHEIGH
         ; DRAWL LINE TO END POINT
-        DW_LINE_XY PLYENDX, PLYENDY
-        ; HUB FONT
-        DW_SET_PEN #PLRTXTCL
-        DW_SET_FILL #$00000000
+        DW_LINE_XY (PLYENDX), (PLYENDY)
         ; SCORE HUB
         DW_POS_TEXT HUBSCORX, HUBSCORY
         LEA     HUBSCRTXT,A1
@@ -80,13 +77,13 @@ UPDATE_END_COORDINATES
         MOVEM.L D0-D3, -(A7)
         CLR.L D0
         CLR.L D1
-        MOVE.B #PLYYANG, D0
-        MOVE.B #PLYXANG, D1
+        MOVE.B (PLYYANG), D0
+        MOVE.B (PLYXANG), D1
         MOVE.W #SCRHEIGH, D2
         JSR CALC_END_POINT
         MOVE.W D0, (PLYENDY)
-        MOVE.W D1, (PLYXEND)
-        MOVEM.W (A7)+, D0-D3
+        MOVE.W D1, (PLYENDX)
+        MOVEM.L (A7)+, D0-D3
         RTS
 
 * -----------------------------------------------------------------------------
@@ -122,3 +119,16 @@ CALC_END_POINT
         CLR.L D3
         RTS
 
+
+
+
+
+
+
+
+
+
+*~Font name~Courier New~
+*~Font size~10~
+*~Tab type~1~
+*~Tab size~4~

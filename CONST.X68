@@ -5,10 +5,10 @@
 ; --- GAME STATES -------------------------------------------------------------
 
 STANONE     EQU     -1                      ; PLACEHOLDER TO FORCE CHANGE
-STAINTR     EQU     0                       ; INTRO/PRESS SPACE STATE
-STAPLAY     EQU     1                       ; NORMAL GAME STATE
-STAGOVR     EQU     2                       ; GAME OVER STATE
-STASELB     EQU     3                       ; SELECT BALL STATE
+;STAINTR     EQU     0                       ; INTRO/PRESS SPACE STATE
+STAPLAY     EQU     0                       ; NORMAL GAME STATE
+;STAGOVR     EQU     2                       ; GAME OVER STATE
+;STASELB     EQU     3                       ; SELECT BALL STATE
 
 ; --- AGENT TYPES -------------------------------------------------------------
 

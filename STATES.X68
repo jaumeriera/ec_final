@@ -10,7 +10,7 @@ STAINIT
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             MOVE.W  #STANONE,(STACUR)
-            MOVE.W  #STAINTR,(STANEXT)
+            MOVE.W  #STAPLAY,(STANEXT)
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -38,8 +38,10 @@ STAUPD
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.INITBL     DC.L    STAINTRI,STAPLAYI,STAEMPTY
-.UPDTBL     DC.L    STAINTRU,STAPLAYU,STAGOVRU
+.INITBL     DC.L    STAPLAYI
+.UPDTBL     DC.L    STAPLAYU
+; .INITBL     DC.L    STAINTRI,STAPLAYI,STAEMPTY
+; .UPDTBL     DC.L    STAINTRU,STAPLAYU,STAGOVRU
 
 ; -----------------------------------------------------------------------------
 STAPLOT
@@ -57,7 +59,7 @@ STAPLOT
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.PLTTBL     DC.L    STAINTRP,STAPLAYP,STAGOVRP
+.PLTTBL     DC.L    STAPLAYP
 
 ; -----------------------------------------------------------------------------
 STAEMPTY
@@ -86,7 +88,6 @@ STAPLAYU
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             JSR     PLRUPD
-            JSR     SPWUPD
             BRA     AGLUPD
 
 ; -----------------------------------------------------------------------------
@@ -99,83 +100,9 @@ STAPLAYP
             JSR     AGLPLOT
             BRA     PLRPLOT
 
-; -----------------------------------------------------------------------------
-STAINTRI    EQU     DMMINIT
-; INTRO STATE INIT
-; INPUT    - NONE
-; OUTPUT   - NONE
-; MODIFIES - NONE
-; NOTE     - JUST A WRAPPER FOR DMMINIT TO RELEASE ALL MEMORY
-; -----------------------------------------------------------------------------
 
-; -----------------------------------------------------------------------------
-STAINTRU
-; INTRO STATE UPDATE
-; INPUT    - NONE
-; OUTPUT   - NONE
-; MODIFIES - NONE
-; -----------------------------------------------------------------------------
-            BTST.B  #KBDBITF1,(KBDEDGE)
-            BEQ     .END
-            MOVE.W  #STAPLAY,(STANEXT)
-.END        RTS
 
-; -----------------------------------------------------------------------------
-STAINTRP
-; INTRO STATE PLOT
-; INPUT    - NONE
-; OUTPUT   - NONE
-; MODIFIES - NONE
-; -----------------------------------------------------------------------------
-            MOVEM.L A1/D0-D1,-(A7)
-            UTLLOCT INTTITX,INTTITY
-            UTLSPEN #INTTITC
-            UTLSFIL #$00000000
-            LEA     .TITSTR,A1
-            MOVE.B  #14,D0
-            TRAP    #15
-
-            UTLLOCT INTPRSX,INTPRSY
-            UTLSPEN #INTPRSC
-            UTLSFIL #$00000000
-            LEA     .PRSSTR,A1
-            MOVE.B  #14,D0
-            TRAP    #15
-            MOVEM.L (A7)+,A1/D0-D1
-            RTS
-
-.TITSTR     DC.B    'STAR FIGHTER 68000',0
-.PRSSTR     DC.B    'PUSH FIRE TO START',0
-            DS.W    0
-
-; -----------------------------------------------------------------------------
-STAGOVRU
-; GAME OVER STATE UPDATE
-; INPUT    - NONE
-; OUTPUT   - NONE
-; MODIFIES - NONE
-; -----------------------------------------------------------------------------
-            BTST.B  #KBDBITF1,(KBDEDGE)
-            BEQ     .END
-            MOVE.W  #STAINTR,(STANEXT)
-.END        RTS
-
-; -----------------------------------------------------------------------------
-STAGOVRP
-; GAME OVER STATE PLOT
-; INPUT    - NONE
-; OUTPUT   - NONE
-; MODIFIES - NONE
-; -----------------------------------------------------------------------------
-            MOVEM.L A1/D0-D1,-(A7)
-            UTLLOCT GOVSTRX,GOVSTRY
-            UTLSPEN #GOVSTRC
-            UTLSFIL #$00000000
-            LEA     .GOVSTR,A1
-            MOVE.B  #14,D0
-            TRAP    #15
-            MOVEM.L (A7)+,A1/D0-D1
-            RTS
-
-.GOVSTR     DC.B    'GAME  OVER',0
-            DS.W    0
+*~Font name~Courier New~
+*~Font size~10~
+*~Tab type~1~
+*~Tab size~4~
