@@ -112,7 +112,8 @@ CALC_END_POINT
         ADDI.L #1, D2
         EXT.W D1
         MULS.W D1, D2                   
-        MOVE.W D2, D1                   ; now D1 contains X coordinate
+        MOVE.W D2, D1
+        ADD.W (PLYXPOS), D1             ; now D1 contains X coordinate
         MOVE.W #0, D0
         EXT.W D3
         ADD.W D3, D0                    ; now D0 contains Y coordinate

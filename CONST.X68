@@ -52,12 +52,11 @@ HUBFLRYH    EQU     SCRHEIGH                ; HUB FLOOR LINE Y COORDINATE
 ; Angle constants:
 ; X = less significative byte
 ; Y = most significative byte
-HUBANG      DC.W    $F8FF , $F9FE , $FAFD , $FBFC , $FCFB , $FDFA , $FEF9
-            DC.W    $FFF8 , $F700 , $01F8 , $02F9 , $03FA , $04FB , $05FC
-            DC.W    $06FD , $07FE , $08FF
+HUBANG      DC.W    $FFF8, $FEF9, $FDFA, $FCFB, $FBFC, $FAFD, $F9FE, $F8FF
+            DC.W    $F700, $F801, $F902, $FA03, $FB04, $FC05, $FD06, $FE07
+            DC.W    $FF08
 
-
-HUBSTRIDX   EQU     8                       ; START PLAYER INDEX
+HUBSTRIDX   EQU     16                       ; START PLAYER INDEX
 HUBSTNBAL   EQU     1                       ; GENERIC NUM BALLS START
 HUBSCRTXT   DC.B    'SCORE: ',0             ; GENERIC SCORE TEXT
 
