@@ -13,7 +13,6 @@ PLRINIT
         MOVE.W #HUBSTNBAL, (PLYNBAL)
         MOVE.B #HUBSTRIDX, (PLYIDX)
         JSR UPDATE_ANGLE_VALUES
-        JSR UPDATE_END_COORDINATES
         RTS
 
 ; -----------------------------------------------------------------------------
@@ -22,9 +21,54 @@ PLRUPD
 ; OUTPUT   - NONE (MODIFIES PLAYER DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-        ; TODO
-        MOVE.W D0, D0
+        MOVE.L D0, -(A7)
+        MOVE.B (KBDEDGE), D0
+        ; CHECK IF ANGLE INCREASE
+        ROR.B #1, D0
+        BCC .CHKUP
+        JSR DECREASE_PLY_ANGLE
+        JSR UPDATE_ANGLE_VALUES
+.CHKUP
+        ROR.B #1, D0
+        BCC .CHKRT
+.CHKRT
+        ; CHECK IF ANGLE DECREASE
+        ROR.B #1, D0
+        BCC .SPAWN
+        JSR INCREASE_PLY_ANGLE
+        JSR UPDATE_ANGLE_VALUES
+.SPAWN  
+        BRA .END                         ; CHECK IF MUST SPAWN BALLS
+.END    MOVE.L (A7)+, D0
         RTS 
+
+; -----------------------------------------------------------------------------
+DECREASE_PLY_ANGLE
+; INPUT    - NONE (ACCESSES PLYIDX)
+; OUTPUT   - NONE (MODIFIES PLAYER DATA)
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+        MOVE.L D0, -(A7)
+        MOVE.B #HUBANGMIN, D0
+        CMP.B (PLYIDX), D0
+        BEQ .END
+        SUB.B #1, (PLYIDX)
+.END    MOVE.L (A7)+, D0
+        RTS
+
+; -----------------------------------------------------------------------------
+INCREASE_PLY_ANGLE
+; INPUT    - NONE (ACCESSES PLYIDX)
+; OUTPUT   - NONE (MODIFIES PLAYER DATA)
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+        MOVE.L D0, -(A7)
+        MOVE.B #HUBANGMAX, D0
+        CMP.B (PLYIDX), D0
+        BEQ .END
+        ADD.B #1, (PLYIDX)
+.END    MOVE.L (A7)+, D0
+        RTS
 
 ; -----------------------------------------------------------------------------
 PLRPLOT
@@ -68,6 +112,7 @@ UPDATE_ANGLE_VALUES
         LSR.W #8, D1
         MOVE.B D1, (PLYYANG)
         MOVEM.L (A7)+, A0/D0-D1
+        JSR UPDATE_END_COORDINATES
         RTS
 
 * -----------------------------------------------------------------------------
