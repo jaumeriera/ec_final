@@ -38,8 +38,8 @@ STAUPD
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.INITBL     DC.L    STAINTRI
-.UPDTBL     DC.L    STAINTRU
+.INITBL     DC.L    STAINTRI, STAPLAYI
+.UPDTBL     DC.L    STAINTRU, STAPLAYU
 ; .INITBL     DC.L    STAINTRI,STAPLAYI,STAEMPTY
 ; .UPDTBL     DC.L    STAINTRU,STAPLAYU,STAGOVRU
 
@@ -59,7 +59,7 @@ STAPLOT
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.PLTTBL     DC.L    STAINTRP
+.PLTTBL     DC.L    STAINTRP, STAPLAYP
 
 ; -----------------------------------------------------------------------------
 STAEMPTY
@@ -70,6 +70,35 @@ STAEMPTY
 ; NOTE     - JUST A PLACEHOLDER. NOTHING TO DO.
 ; -----------------------------------------------------------------------------
             RTS
+
+; -----------------------------------------------------------------------------
+STAPLAYI    EQU     PLRINIT
+; INIT PLAYER STATE
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; NOTE     - JUST A WRAPPER FOR PLRINIT
+; -----------------------------------------------------------------------------
+
+; -----------------------------------------------------------------------------
+STAPLAYU
+; EMPTY SUBROUTINE FOR CASES WITH NOTHING TO DO
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+            JSR PLRUPD
+            BRA AGLUPD
+
+; -----------------------------------------------------------------------------
+STAPLAYP
+; PLAY STATE PLOT
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+            JSR     AGLPLOT
+            BRA     PLRPLOT
 
 ; -----------------------------------------------------------------------------
 STAINTRI    EQU     DMMINIT

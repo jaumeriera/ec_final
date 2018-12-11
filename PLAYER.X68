@@ -41,12 +41,13 @@ PLRPLOT
         ; DRAWL LINE TO END POINT
         DW_LINE_XY (PLYENDX), (PLYENDY)
         ; SCORE HUB
-        DW_POS_TEXT HUBSCORX, HUBSCORY
+        DW_POS_CURS #HUBSCORX, #HUBSCORY
         LEA     HUBSCRTXT,A1
         CLR.L   D1
         MOVE.W  (PLYNBAL),D1
         MOVE.B  #17,D0
         TRAP    #15
+        MOVEM.L (A7)+, D0-D7
         RTS
 
 * -----------------------------------------------------------------------------
