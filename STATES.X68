@@ -10,7 +10,7 @@ STAINIT
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             MOVE.W  #STANONE,(STACUR)
-            MOVE.W  #STAPLAY,(STANEXT)
+            MOVE.W  #STAINTR,(STANEXT)
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -38,8 +38,8 @@ STAUPD
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.INITBL     DC.L    STAPLAYI
-.UPDTBL     DC.L    STAPLAYU
+.INITBL     DC.L    STAINTRI
+.UPDTBL     DC.L    STAINTRU
 ; .INITBL     DC.L    STAINTRI,STAPLAYI,STAEMPTY
 ; .UPDTBL     DC.L    STAINTRU,STAPLAYU,STAGOVRU
 
@@ -59,7 +59,7 @@ STAPLOT
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.PLTTBL     DC.L    STAPLAYP
+.PLTTBL     DC.L    STAINTRP
 
 ; -----------------------------------------------------------------------------
 STAEMPTY
@@ -72,35 +72,53 @@ STAEMPTY
             RTS
 
 ; -----------------------------------------------------------------------------
-STAPLAYI    EQU     PLRINIT
-; PLAY STATE INITIALIZATION.
+STAINTRI    EQU     DMMINIT
+; INTRO STATE INITIALIZATION.
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
-; NOTE     - JUST A WRAPPER FOR PLRINIT
+; NOTE     - JUST A WRAPPER FOR INTRINIT
 ; -----------------------------------------------------------------------------
 
 ; -----------------------------------------------------------------------------
-STAPLAYU
-; PLAY STATE UPDATE
-; INPUT    - NONE
-; OUTPUT   - NONE
-; MODIFIES - NONE
-; -----------------------------------------------------------------------------
-            JSR     PLRUPD
-            BRA     AGLUPD
-
-; -----------------------------------------------------------------------------
-STAPLAYP
-; PLAY STATE PLOT
+STAINTRU
+; INTRO STATE UPDATE
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            JSR     AGLPLOT
-            BRA     PLRPLOT
+            BTST.B  #KBDBITF1,(KBDEDGE) ; CAMBIAR CUANDO ESTE INTEGRACIÓN FINAL
+            BEQ     .END
+            MOVE.W  #STAPLAY,(STANEXT)
+.END        RTS
 
+; -----------------------------------------------------------------------------
+STAINTRP
+; INTRO STATE PLOT
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+            MOVEM.L A1/D0-D1,-(A7)
+            DW_POS_TEXT INTTITX,INTTITY
+            DW_SET_PEN INTTITC
+            DW_SET_FILL $00000000
+            LEA     .TITSTR,A1
+            MOVE.B  #14,D0
+            TRAP    #15
 
+            DW_POS_TEXT INTPRSX,INTPRSY
+            DW_SET_PEN INTPRSC
+            DW_SET_FILL $00000000
+            LEA     .PRSSTR,A1
+            MOVE.B  #14,D0
+            TRAP    #15
+            MOVEM.L (A7)+,A1/D0-D1
+            RTS
+
+.TITSTR     DC.B    'BBTAN 68000',0
+.PRSSTR     DC.B    'PUSH SPACE TO START',0
+            DS.W    0
 
 *~Font name~Courier New~
 *~Font size~10~
