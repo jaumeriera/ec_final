@@ -11,7 +11,7 @@ SCRTRAP     EQU     1                       ; SCREEN REFRESH TRAP
 
 KBDCHRSP    EQU     $20                     ; SPACE KEY
 KBDCHRMK    EQU     'M'                     ; M KEY
-KBDCHRSH    EQU     $10                     ; SHIFT KEY
+KBDCHRSH    EQU     'S'                     ; SHIFT KEY
 KBDCHRPK    EQU     'P'                     ; P KEY
 KBDCHRLF    EQU     $25                     ; LEFT KEY
 KBDCHRUP    EQU     $26                     ; UP KEY
@@ -62,7 +62,7 @@ KBDBITRT    EQU     2
 KBDBITDN    EQU     3
 KBDBITF1    EQU     4
 KBDBITF2    EQU     5
-KBDBITF3    EQU     6
+KBDBITST    EQU     6
 KBDBITPS    EQU     7
 
 ; --- SCREEN RELATED CONSTANTS ------------------------------------------------

@@ -13,6 +13,7 @@
             INCLUDE "SYSTEM.X68"            ; SYSTEM CODE
             INCLUDE "CONST.X68"             ; USER CONSTANTS    
             INCLUDE "PLAYER.X68"            ; PLAYER MANAGEMENT
+            INCLUDE "SPAWNER.X68"           ; SPAWNER MANAGEMENT
             INCLUDE "AGENTLST.X68"          ; AGENT LIST MANAGEMENT
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
@@ -47,6 +48,7 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
+
 
 
 

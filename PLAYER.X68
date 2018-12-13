@@ -25,7 +25,7 @@ PLRUPD
         MOVE.B  (SPWON), D0
         CMP.B   #0, D0
         BNE     .END
-        MOVE.B (KBDEDGE), D0
+        MOVE.B (KBDVAL), D0
         ; CHECK IF ANGLE INCREASE
         ROR.B #1, D0
         BCC .CHKUP
@@ -89,10 +89,6 @@ PLRPLOT
         MOVEM.L D0-D7, -(A7)
         ; SET COLORS
         DW_SET_PEN HUBCOLOR
-        ; MOVE CURSOR TO CURRENT PLAYER POSITION
-        DW_POS_CURS (PLYXPOS), #SCRHEIGH
-        ; DRAWL LINE TO END POINT
-        DW_LINE_XY (PLYENDX), (PLYENDY)
         ; SCORE HUB
         DW_POS_CURS #HUBSCORX, #HUBSCORY
         LEA     HUBSCRTXT,A1
@@ -100,6 +96,14 @@ PLRPLOT
         MOVE.W  (PLYNBAL),D1
         MOVE.B  #17,D0
         TRAP    #15
+        MOVE.B  (SPWON), D0
+        CMP.B   #0, D0
+        BNE     .END
+        ; MOVE CURSOR TO CURRENT PLAYER POSITION
+        DW_POS_CURS (PLYXPOS), #SCRHEIGH
+        ; DRAWL LINE TO END POINT
+        DW_LINE_XY (PLYENDX), (PLYENDY)
+.END
         MOVEM.L (A7)+, D0-D7
         RTS
 

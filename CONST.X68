@@ -68,8 +68,8 @@ PLYSTARTX   EQU     SCRWIDTH/2
 INTTITX     EQU     35                      ; TITLE X COORDINATE
 INTTITY     EQU     15                      ; TITLE Y COORDINATE
 INTTITC     EQU     $000000FF               ; TITLE COLOR
-INTPRSX     EQU     31                      ; PRESS SPACE X COORDINATE
-INTPRSY     EQU     20                      ; PRESS SPACE Y COORDINATE
+INTPRSX     EQU     30                      ; PRESS "S" KEY X COORDINATE
+INTPRSY     EQU     20                      ; PRESS "S" KEY Y COORDINATE
 INTPRSC     EQU     $00FFFFFF               ; PRESS SPACE COLOR
 
 ; --- GAME OVER STATE RELATED CONSTANTS ---------------------------------------

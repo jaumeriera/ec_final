@@ -72,13 +72,18 @@ STAEMPTY
             RTS
 
 ; -----------------------------------------------------------------------------
-STAPLAYI    EQU     PLRINIT
-; INIT PLAYER STATE
+STAPLAYI
+; INIT PLAYER AND SPAWNER STATE
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
-; NOTE     - JUST A WRAPPER FOR PLRINIT
+; NOTE     - JUST A WRAPPER FOR PLRINIT AND SPWINIT
 ; -----------------------------------------------------------------------------
+    CLR.B (KBDVAL)
+    CLR.B (KBDEDGE)
+    JSR PLRINIT
+    JSR SPWINIT
+    RTS
 
 ; -----------------------------------------------------------------------------
 STAPLAYU
@@ -117,7 +122,7 @@ STAINTRU
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            BTST.B  #KBDBITF1,(KBDEDGE) ; CAMBIAR CUANDO ESTE INTEGRACIÓN FINAL
+            BTST.B  #KBDBITST,(KBDEDGE) ; CAMBIAR CUANDO ESTE INTEGRACIÓN FINAL
             BEQ     .END
             MOVE.W  #STAPLAY,(STANEXT)
 .END        RTS
@@ -147,7 +152,7 @@ STAINTRP
             RTS
 
 .TITSTR     DC.B    'BBTAN 68000',0
-.PRSSTR     DC.B    'PUSH SPACE TO START',0
+.PRSSTR     DC.B    'PUSH "S" KEY TO START',0
             DS.W    0
 
 *~Font name~Courier New~
