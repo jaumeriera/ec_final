@@ -10,9 +10,13 @@ SPWUPD
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             MOVEM.L  D0/A1-A3,-(A7)
+            MOVE.B  (SPWON), D0
+            CMP.B   #1, D0
+            BNE     .END
             MOVE.B  (SCRCYCCT),D0
             AND     #SPWCYCLE,D0
-            BNE     .END                    ; CREATE A NEW ASTEROID
+            BNE     .END                    ; CREATE A NEW BALL
+            ADD     #1, (SPWBAL)            ; UPDATE NUMBER OF BALLS THROWED
             LEA     BALINIT,A1
             LEA     BALUPD,A2
             LEA     BALPLOT,A3
