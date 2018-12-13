@@ -12,7 +12,7 @@ STAPLAY     EQU     1                       ; NORMAL GAME STATE
 
 ; --- AGENT TYPES -------------------------------------------------------------
 
-BLLTYPE     EQU     1                       ; BALL TYPE
+BALTYPE     EQU     1                       ; BALL TYPE
 SQRTYPE     EQU     2                       ; SQUARE TYPE
 BONTYPE     EQU     3                       ; BONUS TYPE +1 TO NUM BALLS
 HUBTYPE     EQU     4                       ; HUB TYPE
@@ -78,8 +78,9 @@ GOVSTRX     EQU     35                      ; TITLE X COORDINATE
 GOVSTRY     EQU     15                      ; TITLE Y COORDINATE
 GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
-; --- PLAYER CONSTANTS --------------------------------------------------------
+; --- SPAWNER CONSTANTS -------------------------------------------------------
 
+SPWCYCLE    EQU     16                      ; NUMBER OF CICLES BETWEEN SHOTS
 
 ; --- SELECT BALL STATE CONSTANTS ---------------------------------------------
 

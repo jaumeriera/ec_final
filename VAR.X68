@@ -14,6 +14,12 @@ PLYYANG     DS.B    1       ; ANGLE Y COORDINATE
 PLYENDX     DS.W    1       ; END X COORDINATE TO DRAW ANGLE
 PLYENDY     DS.W    1       ; END Y COORDINATE TO DRAW ANGLE
 
+; --- SPAWNER VARS -----------------------------------------------------------
+
+SPWON       DS.B    1       ; 1 IF SPAWNER IS WORKING 0 IF SPAWNER IS PAUSED
+SPWBAL      DS.W    1       ; NUMBER OF BALLS SHOTED
+SPWLAN      DS.W    1       ; NUMBER OF BALLS ON LANDED 
+
 ; --- STAT VARS --------------------------------------------------------------
 
 STACUR      DS.W    1       ; CURRENT STATE

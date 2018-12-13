@@ -1,0 +1,26 @@
+; =============================================================================
+; SPAWNER MANAGEMENT.
+; =============================================================================
+
+; -----------------------------------------------------------------------------
+SPWUPD
+; UPDATES THE SPAWNER
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+            MOVEM.L  D0/A1-A3,-(A7)
+            MOVE.B  (SCRCYCCT),D0
+            AND     #SPWCYCLE,D0
+            BNE     .END                    ; CREATE A NEW ASTEROID
+            LEA     BALINIT,A1
+            LEA     BALUPD,A2
+            LEA     BALPLOT,A3
+            MOVE.W  #BALTYPE,D0
+            JSR     AGLADD
+.END        MOVEM.L (A7)+,D0/A1-A3
+            RTS
+*~Font name~Courier New~
+*~Font size~10~
+*~Tab type~1~
+*~Tab size~4~
