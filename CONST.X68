@@ -56,11 +56,12 @@ HUBANG      DC.W    $FFF8, $FEF9, $FDFA, $FCFB, $FBFC, $FAFD, $F9FE, $F8FF
             DC.W    $F700, $F801, $F902, $FA03, $FB04, $FC05, $FD06, $FE07
             DC.W    $FF08
 
-HUBSTRIDX   EQU     8                      ; START PLAYER INDEX
+HUBSTRIDX   EQU     8                       ; START PLAYER INDEX
 HUBANGMAX   EQU     16                      ; MAX INDEX ANGLE ARRAY
 HUBANGMIN   EQU     0                       ; MIN INDEX ANGLE ARRAY
 HUBSTNBAL   EQU     1                       ; GENERIC NUM BALLS START
 HUBSCRTXT   DC.B    'SCORE: ',0             ; GENERIC SCORE TEXT
+PLYSTARTX   EQU     SCRWIDTH/2
 
 ; --- INTRO STATE RELATED CONSTANTS -------------------------------------------
 

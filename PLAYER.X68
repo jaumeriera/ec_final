@@ -9,7 +9,7 @@ PLRINIT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-        MOVE.W #SCRWIDTH/2, (PLYXPOS)
+        MOVE.W #PLYSTARTX, (PLYXPOS)
         MOVE.W #HUBSTNBAL, (PLYNBAL)
         MOVE.B #HUBSTRIDX, (PLYIDX)
         JSR UPDATE_ANGLE_VALUES
