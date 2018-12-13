@@ -22,6 +22,9 @@ PLRUPD
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
         MOVE.L D0, -(A7)
+        MOVE.B  (SPWON), D0
+        CMP.B   #0, D0
+        BNE     .END
         MOVE.B (KBDEDGE), D0
         ; CHECK IF ANGLE INCREASE
         ROR.B #1, D0
@@ -34,11 +37,17 @@ PLRUPD
 .CHKRT
         ; CHECK IF ANGLE DECREASE
         ROR.B #1, D0
-        BCC .SPAWN
+        BCC .CHKDW
         JSR INCREASE_PLY_ANGLE
         JSR UPDATE_ANGLE_VALUES
+.CHKDW
+        ROR.B #1, D0
+        BCC .SPAWN
 .SPAWN  
-        BRA .END                         ; CHECK IF MUST SPAWN BALLS
+        ; CHECK IF MUST SPAWN BALLS
+        ROR.B #1, D0
+        BCC .END
+        MOVE.B #1,(SPWON) ; ENABLE SPAWNER                   
 .END    MOVE.L (A7)+, D0
         RTS 
 
