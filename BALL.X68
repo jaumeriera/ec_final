@@ -34,10 +34,10 @@ BALUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-;    MOVE.W  4(A0),D0                ; UPDATE COORDINATES
-;    SUB.W   D0,(A0)
-;    MOVE.W  6(A0),D0
-;    ADD.W   D0,2(A0)
+    MOVE.W  4(A0),D0                ; UPDATE COORDINATES
+    ADD.W   D0,(A0)
+    MOVE.W  6(A0),D0
+    ADD.W   D0,2(A0)
     RTS
 
 ; -----------------------------------------------------------------------------
