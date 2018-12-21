@@ -4,7 +4,17 @@
 
 ; -----------------------------------------------------------------------------
 SPWINIT
-; INICIALIZES THE SPAWNER
+; JUST A WRAPPER FOR SPWCLR
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    JSR SPWCLR
+    RTS
+
+; -----------------------------------------------------------------------------
+SPWCLR
+; CLEAR ALL SPWNER VARIABLES
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
