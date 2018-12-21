@@ -16,6 +16,7 @@
             INCLUDE "SPAWNER.X68"           ; SPAWNER MANAGEMENT
             INCLUDE "AGENTLST.X68"          ; AGENT LIST MANAGEMENT
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
+            INCLUDE "BALL.X68"              ; BALL MANAGEMENT
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
 
 ; --- INITIALIZE --------------------------------------------------------------

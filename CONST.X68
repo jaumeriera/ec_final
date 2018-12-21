@@ -20,19 +20,20 @@ HUBTYPE     EQU     4                       ; HUB TYPE
 ; --- GENERIC BALL CONSTANTS -------------------------------------------------
 
 GENBLSPD    EQU     10                      ; GENERIC BALL SPEED IN PIXELS
-GENCOLOR    EQU     $000000FF               ; GENERIC BALL COLOR
+BALPENCL    EQU     $00FFFFFF               ; BALL PEN COLOR
+BALFILCL    EQU     $0000FF00               ; BALL FIL COLOR
 
 ; --- SMALL BALL CONSTANTS ---------------------------------------------------
 
-SMLRADI     EQU     5                       ; RADIOUS OF SMALL BALL
+SMLRADI     EQU     10                       ; RADIOUS OF SMALL BALL
 
 ; --- NORMAL BALL CONSTANTS --------------------------------------------------
 
-NORRADI     EQU     10                      ; RADIOUS OF NORMAL BALL
+NORRADI     EQU     20                      ; RADIOUS OF NORMAL BALL
 
 ; --- BIG BALL CONSTANTS -----------------------------------------------------
 
-BIGRADI     EQU     15                      ; RADIOUS OF BIG BALL
+BIGRADI     EQU     30                      ; RADIOUS OF BIG BALL
 
 ; --- SQUARE CONSTANTS -------------------------------------------------------
 
@@ -46,6 +47,7 @@ SQRTEXTC    EQU     $00FFFFFF               ; SQUARE COUNTER DISPLAY COLOR
 ; --- GAME HUB CONSTANTS -----------------------------------------------------
 
 HUBCOLOR    EQU     $00FFFFFF               ; HUB FONT COLOR
+HUBFILCL    EQU     $00000000               ; HUB FILL COLOR
 HUBSCORX    EQU     2                       ; HUB SCORE X COORDINATE
 HUBSCORY    EQU     1                       ; HUB SCORE Y COORDINATE
 HUBFLRYH    EQU     SCRHEIGH                ; HUB FLOOR LINE Y COORDINATE

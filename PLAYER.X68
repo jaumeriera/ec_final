@@ -89,6 +89,7 @@ PLRPLOT
         MOVEM.L D0-D7, -(A7)
         ; SET COLORS
         DW_SET_PEN HUBCOLOR
+        DW_SET_FILL HUBFILCL
         ; SCORE HUB
         DW_POS_CURS #HUBSCORX, #HUBSCORY
         LEA     HUBSCRTXT,A1
