@@ -10,8 +10,8 @@ SPWINIT
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
     CLR.B (SPWON)
-    CLR.B (SPWBAL)
-    CLR.B (SPWLAN)
+    CLR.W (SPWBAL)
+    CLR.W (SPWLAN)
     RTS
 
 ; -----------------------------------------------------------------------------
@@ -25,6 +25,9 @@ SPWUPD
             MOVE.B  (SPWON), D0
             CMP.B   #1, D0
             BNE     .END
+            MOVE.W  (PLYNBAL), D0
+            CMP.W   (SPWBAL), D0
+            BEQ     .END
             MOVE.B  (SCRCYCCT),D0
             AND     #SPWCYCLE,D0
             BNE     .END                    ; CREATE A NEW BALL

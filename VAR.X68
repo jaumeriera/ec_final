@@ -17,6 +17,7 @@ PLYENDY     DS.W    1       ; END Y COORDINATE TO DRAW ANGLE
 ; --- SPAWNER VARS -----------------------------------------------------------
 
 SPWON       DS.B    1       ; 1 IF SPAWNER IS WORKING 0 IF SPAWNER IS PAUSED
+            DS.W    0
 SPWBAL      DS.W    1       ; NUMBER OF BALLS SHOTED
 SPWLAN      DS.W    1       ; NUMBER OF BALLS ON LANDED 
 
