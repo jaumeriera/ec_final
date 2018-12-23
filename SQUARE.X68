@@ -42,6 +42,27 @@ SQRSPW
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+    MOVEM.L A0-A1/D0-D7,-(A7)
+    MOVE.W  #SCRWIDTH, D2
+    DIVU    #SQRSIDEL, D2
+    JSR     UTLRAND
+    MOVE.L  D0, D6
+.LOOP                               ; LOOP WHILE CAN CREATE SQUARES
+    SUB.W   #1, D2
+    ROR.B   #1, D6
+    BCC     .ISLAST
+    MOVE.W  #SQRTYPE,D0
+    MOVE.W  #0,D1
+    MOVE.W  (PLYROUND), D3
+    LEA     SQRINIT,A1
+    LEA     SQRUPD,A2
+    LEA     SQRPLOT,A3
+    JSR     AGLADD
+.ISLAST
+    CMP.W   #0, D2
+    BNE     .LOOP
+
+    MOVEM.L (A7)+,A0-A1/D0-D7
     RTS
 
 ; -----------------------------------------------------------------------------
@@ -79,4 +100,27 @@ SQRUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+    RTS
+
+; -----------------------------------------------------------------------------
+SQRPLOT
+; PLOT SQUARE
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    MOVEM.L A0-A1/D0-D7,-(A7)
+    DW_SET_PEN  SQRLINEC
+    DW_SET_FILL SQRFILLC
+    MOVE.W  (A0), D2
+    MULU.W  #SQRSIDEL, D2
+    MOVE.W  2(A0), D1
+    MULU.W  #SQRSIDEL, D1
+    MOVE.W  D2, D4
+    ADD.W   #SQRSIDEL, D4
+    MOVE.W  D1, D3
+    ADD.W   #SQRSIDEL, D3
+    MOVE.W  #87, D0
+    TRAP    #15
+    MOVEM.L (A7)+,A0-A1/D0-D7
     RTS

@@ -27,3 +27,8 @@ SPWNXX      DS.W    1       ; NEXT PLAYER X COORDINATE
 
 STACUR      DS.W    1       ; CURRENT STATE
 STANEXT     DS.W    1       ; NEXT STATE
+
+; --- UTILITY VARIABLES ------------------------------------------------------
+
+UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
+            DS.W    0
