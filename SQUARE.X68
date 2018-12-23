@@ -26,7 +26,7 @@ SQRINIT
 SQRNWRND
 ; ADVANCE ROUND CONSISTS ON INCREMENT NUMBER OF ROUND, ADVANCE ONE ROW ALL
 ; THE SQUARES AND SPAWN A NEW LINE OF SQUARES. ALSO CHECK IF GAME END
-; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
@@ -38,7 +38,7 @@ SQRNWRND
 ; -----------------------------------------------------------------------------
 SQRSPW
 ; SPAWN A NEW LINE OF SQUARES
-; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
@@ -47,10 +47,29 @@ SQRSPW
 ; -----------------------------------------------------------------------------
 SQRUPDRW
 ; UPDATES ALL SQUARE ROWS
-; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+    MOVEM.L A0-A1/D0-D7,-(A7)
+    MOVE.W  #SQRTYPE,D0             ; LOOP THROUGH ALL SQUARES
+    JSR     DMMFRSTO
+.LOOP       
+    CMP.L   #0,A0
+    BEQ     .END
+    ADD.W   #1, (A0)
+    MOVE.W  (A0), D1                ; CHECK IF GAME OVER
+    MULU.W  #SQRSIDEL, D1
+    CMP.W   #SCRHEIGH, D1
+    BLT     .CONTINUE
+    MOVE.W  #2, D0
+;    MOVE.W  #STAGOVR, (STANEXT)
+;    BRA     .END
+.CONTINUE
+    JSR     DMMNEXTO
+    BRA     .LOOP
+.END        
+    MOVEM.L (A7)+,A0-A1/D0-D7
     RTS
 
 ; -----------------------------------------------------------------------------
