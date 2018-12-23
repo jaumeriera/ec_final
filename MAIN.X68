@@ -17,6 +17,7 @@
             INCLUDE "AGENTLST.X68"          ; AGENT LIST MANAGEMENT
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
             INCLUDE "BALL.X68"              ; BALL MANAGEMENT
+            INCLUDE "SQUARE.X68"            ; SQUARE MANAGEMENT
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
 
 ; --- INITIALIZE --------------------------------------------------------------
