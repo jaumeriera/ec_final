@@ -71,6 +71,7 @@ BALUPD
     CMP     (SPWLAN), D0
     BNE     .END
     JSR     SQRNWRND                    ; ADVANCE ONE ROUND
+    JSR     SPWCLR
     MOVE.W  (SPWNXX), (PLYXPOS)
     JSR     AGLKILL
 .END
