@@ -63,8 +63,8 @@ SQRUPDRW
     CMP.W   #SCRHEIGH, D1
     BLT     .CONTINUE
     MOVE.W  #2, D0
-;    MOVE.W  #STAGOVR, (STANEXT)
-;    BRA     .END
+    MOVE.W  #STAGOVR, (STANEXT)
+    BRA     .END
 .CONTINUE
     JSR     DMMNEXTO
     BRA     .LOOP

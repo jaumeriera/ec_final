@@ -38,10 +38,8 @@ STAUPD
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.INITBL     DC.L    STAINTRI, STAPLAYI
-.UPDTBL     DC.L    STAINTRU, STAPLAYU
-; .INITBL     DC.L    STAINTRI,STAPLAYI,STAEMPTY
-; .UPDTBL     DC.L    STAINTRU,STAPLAYU,STAGOVRU
+.INITBL     DC.L    STAINTRI,STAPLAYI,STAEMPTY
+.UPDTBL     DC.L    STAINTRU,STAPLAYU,STAGOVRU
 
 ; -----------------------------------------------------------------------------
 STAPLOT
@@ -59,7 +57,7 @@ STAPLOT
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.PLTTBL     DC.L    STAINTRP, STAPLAYP
+.PLTTBL     DC.L    STAINTRP, STAPLAYP, STAGOVRP
 
 ; -----------------------------------------------------------------------------
 STAEMPTY
@@ -153,6 +151,38 @@ STAINTRP
 
 .TITSTR     DC.B    'BBTAN 68000',0
 .PRSSTR     DC.B    'PUSH "S" KEY TO START',0
+            DS.W    0
+
+; -----------------------------------------------------------------------------
+STAGOVRU
+; GAME OVER STATE UPDATE
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+            BTST.B  #KBDBITST,(KBDEDGE) ; CAMBIAR CUANDO ESTE INTEGRACIÓN FINAL
+            BEQ     .END
+            MOVE.W  #STAINTR,(STANEXT)
+.END        RTS
+
+; -----------------------------------------------------------------------------
+STAGOVRP
+; GAME OVER STATE PLOT
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+            MOVEM.L A1/D0-D1,-(A7)
+            DW_POS_TEXT GOVSTRX,GOVSTRY
+            DW_SET_PEN GOVSTRC
+            DW_SET_FILL $00000000
+            LEA     .GOVSTR,A1
+            MOVE.B  #14,D0
+            TRAP    #15
+            MOVEM.L (A7)+,A1/D0-D1
+            RTS
+
+.GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
 
 *~Font name~Courier New~
