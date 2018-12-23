@@ -21,3 +21,43 @@ SQRINIT
     MOVE.W  D2, 2(A0)
     MOVE.W  D3, 4(A0)
     RTS
+
+; -----------------------------------------------------------------------------
+SQRNWRND
+; ADVANCE ROUND CONSISTS ON INCREMENT NUMBER OF ROUND, ADVANCE ONE ROW ALL
+; THE SQUARES AND SPAWN A NEW LINE OF SQUARES. ALSO CHECK IF GAME END
+; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    JSR     SQRUPDRW
+    JSR     SQRSPW
+    ADD.W   #1, (PLYROUND)
+    RTS
+
+; -----------------------------------------------------------------------------
+SQRSPW
+; SPAWN A NEW LINE OF SQUARES
+; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    RTS
+
+; -----------------------------------------------------------------------------
+SQRUPDRW
+; UPDATES ALL SQUARE ROWS
+; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    RTS
+
+; -----------------------------------------------------------------------------
+SQRUPD
+; UPDATES A SQUARE
+; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    RTS
