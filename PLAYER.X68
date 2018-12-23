@@ -12,6 +12,7 @@ PLRINIT
         MOVE.W #PLYSTARTX, (PLYXPOS)
         MOVE.W #HUBSTNBAL, (PLYNBAL)
         MOVE.B #HUBSTRIDX, (PLYIDX)
+        MOVE.W #1, (PLYROUND)
         JSR UPDATE_ANGLE_VALUES
         RTS
 
@@ -91,12 +92,19 @@ PLRPLOT
         DW_SET_PEN HUBCOLOR
         DW_SET_FILL HUBFILCL
         ; SCORE HUB
-        DW_POS_CURS #HUBSCORX, #HUBSCORY
-        LEA     HUBSCRTXT,A1
+        DW_POS_CURS #HUBSCORX, #HUBTXTY
+        LEA     HUBSCRTXT, A1
         CLR.L   D1
-        MOVE.W  (PLYNBAL),D1
-        MOVE.B  #17,D0
+        MOVE.W  (PLYNBAL), D1
+        MOVE.B  #17, D0
         TRAP    #15
+        DW_POS_CURS #HUBRNDX, #HUBTXTY
+        LEA     HUBRNDTXT, A1
+        CLR.L   D1
+        MOVE.W  (PLYROUND), D1
+        MOVE.B  #17, D0
+        TRAP    #15
+        ; CHECK IF MUST PRINT PLAYER ANGLE
         MOVE.B  (SPWON), D0
         CMP.B   #0, D0
         BNE     .END

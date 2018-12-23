@@ -70,6 +70,7 @@ BALUPD
     MOVE.W  (PLYNBAL), D0
     CMP     (SPWLAN), D0
     BNE     .END
+    ADD.W   #1, (PLYROUND)
     JSR     SPWCLR
     MOVE.W  (SPWNXX), (PLYXPOS)
     JSR     AGLKILL

@@ -13,6 +13,7 @@ PLYXANG     DS.B    1       ; ANGLE X COORDINATE
 PLYYANG     DS.B    1       ; ANGLE Y COORDINATE
 PLYENDX     DS.W    1       ; END X COORDINATE TO DRAW ANGLE
 PLYENDY     DS.W    1       ; END Y COORDINATE TO DRAW ANGLE
+PLYROUND    DS.W    1       ; GAME ROUND
 
 ; --- SPAWNER VARS -----------------------------------------------------------
 

@@ -49,7 +49,8 @@ SQRTEXTC    EQU     $00FFFFFF               ; SQUARE COUNTER DISPLAY COLOR
 HUBCOLOR    EQU     $00FFFFFF               ; HUB FONT COLOR
 HUBFILCL    EQU     $00000000               ; HUB FILL COLOR
 HUBSCORX    EQU     2                       ; HUB SCORE X COORDINATE
-HUBSCORY    EQU     1                       ; HUB SCORE Y COORDINATE
+HUBRNDX     EQU     20                      ; HUB ROUND X COORDINATE
+HUBTXTY     EQU     1                       ; HUB SCORE Y COORDINATE
 HUBFLRYH    EQU     SCRHEIGH                ; HUB FLOOR LINE Y COORDINATE
 ; Angle constants:
 ; X = less significative byte
@@ -63,6 +64,7 @@ HUBANGMAX   EQU     16                      ; MAX INDEX ANGLE ARRAY
 HUBANGMIN   EQU     0                       ; MIN INDEX ANGLE ARRAY
 HUBSTNBAL   EQU     1                       ; GENERIC NUM BALLS START
 HUBSCRTXT   DC.B    'SCORE: ',0             ; GENERIC SCORE TEXT
+HUBRNDTXT   DC.B    'ROUND: ',0            ; GENERIC ROUND TEXT
 PLYSTARTX   EQU     SCRWIDTH/2
 
 ; --- INTRO STATE RELATED CONSTANTS -------------------------------------------
