@@ -81,6 +81,7 @@ STAPLAYI
     CLR.B (KBDEDGE)
     JSR PLRINIT
     JSR SPWINIT
+    JSR SQRNWRND
     RTS
 
 ; -----------------------------------------------------------------------------

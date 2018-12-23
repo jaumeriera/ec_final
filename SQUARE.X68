@@ -78,8 +78,8 @@ SQRUPDRW
 .LOOP       
     CMP.L   #0,A0
     BEQ     .END
-    ADD.W   #1, (A0)
-    MOVE.W  (A0), D1                ; CHECK IF GAME OVER
+    ADD.W   #1, 8(A0)
+    MOVE.W  8(A0), D1               ; CHECK IF GAME OVER
     MULU.W  #SQRSIDEL, D1
     CMP.W   #SCRHEIGH, D1
     BLT     .CONTINUE

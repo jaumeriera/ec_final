@@ -38,8 +38,8 @@ BIGRADI     EQU     30                      ; RADIOUS OF BIG BALL
 ; --- SQUARE CONSTANTS -------------------------------------------------------
 
 SQRSIDEL    EQU     80                      ; SQUARE SIDE
-SQRFILLC    EQU     $FFFFFFFF               ; SQUARE FILL COLOR
-SQRLINEC    EQU     $00FF0000               ; SQUARE BORDER LINE COLOR
+SQRFILLC    EQU     $000000FF               ; SQUARE FILL COLOR
+SQRLINEC    EQU     $00FFF000               ; SQUARE BORDER LINE COLOR
 SQRTEXTX    EQU     5                       ; SQUARE COUNTER DISPLAY X COORD
 SQRTEXTY    EQU     5                       ; SQUARE COUNTER DISPLAY Y COORD
 SQRTEXTC    EQU     $00FFFFFF               ; SQUARE COUNTER DISPLAY COLOR
