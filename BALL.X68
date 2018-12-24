@@ -91,6 +91,7 @@ BALPLOT
             MOVE.W  (A0),D1
             SUB.W   #NORRADI/2, D1
             MOVE.W  2(A0),D2
+            SUB.W   #NORRADI/2, D2
             MOVE.W  D1,D3
             MOVE.W  D2,D4
             ADD.W   #NORRADI,D3
