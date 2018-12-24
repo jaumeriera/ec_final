@@ -32,3 +32,5 @@ STANEXT     DS.W    1       ; NEXT STATE
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+AUXVARONE   DS.L    1                       ; AUXILIAR VARIABLE
+AUXVARTWO   DS.L    1                       ; AUCILIAR VARIABLE

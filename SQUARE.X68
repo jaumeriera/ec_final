@@ -12,14 +12,13 @@ SQRINIT
 ; INPUT    - A0 POINTER TO THE LOCAL MEMORY
 ;          - D1 ROW NUMBER
 ;          - D2 COLUMN NUMBER
-;          - D3 CURRENT HIT RESISTANCE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; NOTE     - ASSUMES SCRHEIGH IS GREATER THAN 255
 ; -----------------------------------------------------------------------------
     MOVE.W  D1, (A0)
     MOVE.W  D2, 2(A0)
-    MOVE.W  D3, 4(A0)
+    MOVE.W  (PLYROUND), 4(A0)
     RTS
 
 ; -----------------------------------------------------------------------------
@@ -30,9 +29,9 @@ SQRNWRND
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+    ADD.W   #1, (PLYROUND)
     JSR     SQRUPDRW
     JSR     SQRSPW
-    ADD.W   #1, (PLYROUND)
     RTS
 
 ; -----------------------------------------------------------------------------
@@ -100,6 +99,50 @@ SQRUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+    ; CHECK IF BALL COLLIDES WITH SQUARE
+    MOVEM.L A0-A1/D0-D7,-(A7)
+    MOVE.L  A0, A1
+    MOVE.W  #BALTYPE, D0            ; LOOP THROUGH ALL BALLS
+    JSR     DMMFRSTO
+.LOOP
+    CMP.L   #0, A0
+    BEQ     .END
+    ; GET BALL HITBOX COORDINATES
+    COLL_BALL_HITBOX 8(A0), 10(A0)
+    MOVE.W  D1, (AUXVARONE)
+    MOVE.W  D2, D5
+    MOVE.W  D3, D6
+    MOVE.W  D4, D7
+    ; GET SQAURE HITBOX COORDINATES
+    COLL_SQR_HITBOX  (A1), 2(A1)
+    MOVE.W  D1, D0
+    MOVE.W  D2, D1
+    MOVE.W  D3, D2
+    MOVE.W  D4, D3
+    MOVE.W  (AUXVARONE), D4
+    ; IN THIS MOMENT WE HAVE BOTH HITBOX CALCULATED. FROM D0 TO D3 SQAURE
+    ; HITBOX AND FROM D4 TO D7 BALL HITBOX. NOW WE MUST CHECK IF THERE
+    ; ARE COLLISION
+    CMP.W   D5, D3
+    BLT     .NEXT
+    CMP.W   D7, D1
+    BGT     .NEXT
+    CMP.W   D4, D2
+    BLT     .NEXT
+    CMP.W   D6, D0
+    BGT     .NEXT
+    SUB.W   #1, 4(A1)           ; COLLISION
+    CMP.W   #0, 4(A1)
+    BEQ     .KILL
+.NEXT
+    MOVE.W  #BALTYPE, D0
+    JSR     DMMNEXTO
+    BRA     .LOOP
+.KILL
+    MOVE.L  A1, A0
+    JSR     AGLKILL
+.END
+    MOVEM.L (A7)+,A0-A1/D0-D7 
     RTS
 
 ; -----------------------------------------------------------------------------
@@ -112,14 +155,7 @@ SQRPLOT
     MOVEM.L A0-A1/D0-D7,-(A7)
     DW_SET_PEN  SQRLINEC
     DW_SET_FILL SQRFILLC
-    MOVE.W  (A0), D2
-    MULU.W  #SQRSIDEL, D2
-    MOVE.W  2(A0), D1
-    MULU.W  #SQRSIDEL, D1
-    MOVE.W  D2, D4
-    ADD.W   #SQRSIDEL, D4
-    MOVE.W  D1, D3
-    ADD.W   #SQRSIDEL, D3
+    COLL_SQR_HITBOX (A0), 2(A0)
     MOVE.W  #87, D0
     TRAP    #15
     MOVEM.L (A7)+,A0-A1/D0-D7

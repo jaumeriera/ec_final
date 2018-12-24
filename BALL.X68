@@ -88,14 +88,7 @@ BALPLOT
             DW_SET_PEN BALPENCL
             DW_SET_FILL BALFILCL
             MOVEM.W D1-D4,-(A7)
-            MOVE.W  (A0),D1
-            SUB.W   #NORRADI/2, D1
-            MOVE.W  2(A0),D2
-            SUB.W   #NORRADI/2, D2
-            MOVE.W  D1,D3
-            MOVE.W  D2,D4
-            ADD.W   #NORRADI,D3
-            ADD.W   #NORRADI,D4
+            COLL_BALL_HITBOX (A0), 2(A0)
             MOVE.B  #88,D0
             TRAP    #15
             MOVEM.W (A7)+,D1-D4

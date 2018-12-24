@@ -197,6 +197,44 @@ KBD_UPDT_VARS   MACRO
         ENDM
 
 ; =============================================================================
+; COLLISION UTILS
+; =============================================================================
+
+* -----------------------------------------------------------------------------
+COLL_BALL_HITBOX   MACRO
+* Calculate the hitbox of the ball
+* Parameters : \1: X center coordinate,
+*              \2: Y center coordinate
+* Modifies  : D1, D2, D3, D4
+* -----------------------------------------------------------------------------
+        MOVE.W  \1, D1
+        SUB.W   #NORRADI/2, D1
+        MOVE.W  \2, D2
+        SUB.W   #NORRADI/2, D2
+        MOVE.W  D1, D3
+        MOVE.W  D2, D4
+        ADD.W   #NORRADI, D3
+        ADD.W   #NORRADI, D4
+        ENDM
+
+* -----------------------------------------------------------------------------
+COLL_SQR_HITBOX   MACRO
+* Calculate the hitbox of the ball
+* Parameters : \1: square row,
+*              \2: sqaure column
+* Modifies  : D1, D2, D3, D4
+* -----------------------------------------------------------------------------
+        MOVE.W  \1, D2
+        MULU.W  #SQRSIDEL, D2
+        MOVE.W  \2, D1
+        MULU.W  #SQRSIDEL, D1
+        MOVE.W  D2, D4
+        ADD.W   #SQRSIDEL, D4
+        MOVE.W  D1, D3
+        ADD.W   #SQRSIDEL, D3
+        ENDM
+
+; =============================================================================
 ; UTILITIES
 ; =============================================================================
 
