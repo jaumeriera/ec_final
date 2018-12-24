@@ -52,6 +52,7 @@ BALUPD
     CMP.W   #SCRHEIGH, 2(A0)
     BGT     .BOTTOM
     ; NO COLLISION
+    JSR     BALSQRCOL
     BRA     .END
 .SIDE
     NEG.W   4(A0)
@@ -78,6 +79,73 @@ BALUPD
     MOVE.L  (A7)+, D0
     RTS
 
+; -----------------------------------------------------------------------------
+BALSQRCOL
+; CHECK COLLISION WITH SQUARES
+; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    MOVEM.L D0/A0-A1, -(A7)
+    MOVE.L  A0, A1
+    MOVE.W  #SQRTYPE, D0                ; LOOP THROUGH ALL SQUARES
+    JSR     DMMFRSTO
+.LOOP
+    CMP.L   #0, A0
+    BEQ     .END
+    ; GET BALL HITBOX
+    COLL_BALL_HITBOX (A1), 2(A1)
+    MOVE.W  D1, (AUXVARONE)
+    MOVE.W  D2, D5
+    MOVE.W  D3, D6
+    MOVE.W  D4, D7
+    ; GET SQUARE HITBOT
+    COLL_SQR_HITBOX 8(A0), 10(A0)
+    MOVE.W  D1, D0
+    MOVE.W  D2, D1
+    MOVE.W  D3, D2
+    MOVE.W  D4, D3
+    MOVE.W  (AUXVARONE), D4
+    ; ONCE WE HAVE OBJECTS HITBOX CHECK IF BOUNCE
+    CMP.W   D5, D3
+    BLT     .NEXT
+    CMP.W   D7, D1
+    BGT     .NEXT
+    CMP.W   D4, D2
+    BLT     .NEXT
+    CMP.W   D6, D0
+    BGT     .NEXT
+    ; COLLISION WITH BOTTOM
+    CLR.L   (AUXVARONE)
+    CLR.L   (AUXVARTWO)
+    MOVE.W  (A0), (AUXVARONE)
+    MOVE.W  (A0), (AUXVARTWO)
+    SUB.W   #BALZONE, (AUXVARONE)
+    ADD.W   #BALZONE, (AUXVARTWO)
+    CMP.W   D7, D1
+    BGT     .TOP
+    CMP.W   D3, D7
+    BLT     .TOP
+    CMP.W   (AUXVARONE), D6
+    BGE     .BOUNCEY
+    CMP.W   (AUXVARTWO), D4
+    BLE     .BOUNCEY
+    BRA     .BOUNCEX
+.TOP
+    BRA     .NEXT
+.BOUNCEY
+    NEG.W   6(A1)
+    BRA .END
+.BOUNCEX
+    NEG.W   4(A1)
+    BRA .END
+.NEXT
+    MOVE.W  #SQRTYPE, D0
+    JSR     DMMNEXTO
+    BRA     .LOOP
+.END
+    MOVEM.L (A7)+, D0/A0-A1
+    RTS
 ; -----------------------------------------------------------------------------
 BALPLOT
 ; PLOTS AN ASTEROID

@@ -22,6 +22,7 @@ HUBTYPE     EQU     4                       ; HUB TYPE
 GENBLSPD    EQU     10                      ; GENERIC BALL SPEED IN PIXELS
 BALPENCL    EQU     $00FFFFFF               ; BALL PEN COLOR
 BALFILCL    EQU     $0000FF00               ; BALL FIL COLOR
+BALZONE     EQU     5                       ; ZONE WHERE BOUNCE ON X AXIS
 
 ; --- SMALL BALL CONSTANTS ---------------------------------------------------
 
