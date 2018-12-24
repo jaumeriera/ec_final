@@ -132,6 +132,16 @@ BALSQRCOL
     BLE     .BOUNCEY
     BRA     .BOUNCEX
 .TOP
+    CMP.W   D5, D3
+    BLT     .SIDES
+    CMP.W   D1, D5
+    BGT     .SIDES
+    CMP.W   (AUXVARONE), D6
+    BGE     .BOUNCEY
+    CMP.W   (AUXVARTWO), D4
+    BLE     .BOUNCEY
+    BRA     .BOUNCEX
+.SIDES
     BRA     .NEXT
 .BOUNCEY
     NEG.W   6(A1)
