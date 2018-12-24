@@ -148,15 +148,57 @@ SQRUPD
 ; -----------------------------------------------------------------------------
 SQRPLOT
 ; PLOT SQUARE
-; INPUT    - NONE
+; INPUT    - A0 POINTER TO THE LOCAL MEMORY
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
     MOVEM.L A0-A1/D0-D7,-(A7)
+    ; DRAW SQAURE
     DW_SET_PEN  SQRLINEC
     DW_SET_FILL SQRFILLC
     COLL_SQR_HITBOX (A0), 2(A0)
     MOVE.W  #87, D0
     TRAP    #15
+    ; DRAW COLLISION RESISTANCE
+    DW_SET_PEN  SQRTEXTC
+    JSR SQR_CALC_CENTER
+    LSL.W   #8, D1
+    MOVE.B  D2, D1
+    MOVE.B  #11, D0
+    TRAP    #15
+    CLR.L   D1
+    MOVE.W  4(A0), D1
+    MOVE.B  #17, D0
+    TRAP    #15
     MOVEM.L (A7)+,A0-A1/D0-D7
+    RTS
+
+; -----------------------------------------------------------------------------
+SQR_CALC_CENTER
+; CALCULATE THE CENTER OF THE SQUARE
+; INPUT    - A0 POINTER TO THE LOCAL MEMORY
+; OUTPUT   - D1 CHARACTER ROW
+;          - D2 CHATACTER COL
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    MOVEM.L D3-D4,-(A7)
+    ; CALC COLUMN OF SQUARE IN ORDER TO PRINT TEXT
+    MOVE.W  #SCRWIDTH, D3
+    DIVU.W  #SQRSIDEL, D3
+    MOVE.W  #SCRCOL, D2
+    DIVU.W  D3, D2
+    MOVE.W  D2, D4                      
+    MULU.W  2(A0), D2
+    DIVU.W  #2, D4
+    SUB.W  D4, D2
+    ; CALC ROW OF SQUARE IN ORDER TO PRINT TEXT
+    MOVE.W  #SCRHEIGH, D3
+    DIVU.W  #SQRSIDEL, D3
+    MOVE.W  #SCRROW, D1
+    DIVU.W  D3, D1
+    MOVE.W  D1, D4
+    MULU.W  (A0), D1
+    DIVU.W  #2, D4
+    SUB.W  D4, D1
+    MOVEM.L (A7)+,D3-D4
     RTS

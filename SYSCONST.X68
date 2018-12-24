@@ -71,6 +71,8 @@ SCRWIDTH    EQU     640                     ; SCREEN WIDTH (PIXELS)
 SCRHEIGH    EQU     480                     ; SCREEN HEIGHT (PIXELS)
 SCRIRQ      EQU     1                       ; SCREEN INTERRUPT NUMBER
 SCRTIM      EQU     20                      ; SCREEN TIMER (MS)
+SCRCOL      EQU     256                     ; COLUMNS OF CHARACTERS
+SCRROW      EQU     128                     ; ROWS OF CHARACTERS
 
 ; --- DYNAMIC MEMORY CONSTANTS ------------------------------------------------
 
