@@ -140,14 +140,12 @@ BALSQRCOL
     BGE     .BOUNCEY
     CMP.W   (AUXVARTWO), D4
     BLE     .BOUNCEY
-    BRA     .BOUNCEX
 .SIDES
-    BRA     .NEXT
-.BOUNCEY
-    NEG.W   6(A1)
-    BRA .END
 .BOUNCEX
     NEG.W   4(A1)
+    BRA .END
+.BOUNCEY
+    NEG.W   6(A1)
     BRA .END
 .NEXT
     MOVE.W  #SQRTYPE, D0
