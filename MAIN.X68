@@ -18,6 +18,7 @@
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
             INCLUDE "BALL.X68"              ; BALL MANAGEMENT
             INCLUDE "SQUARE.X68"            ; SQUARE MANAGEMENT
+            INCLUDE "BONUS.X68"             ; BONUS MANAGEMENT
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
 
 ; --- INITIALIZE --------------------------------------------------------------
