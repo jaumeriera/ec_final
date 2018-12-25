@@ -13,7 +13,7 @@ BALINIT
 ; INPUT    - A0 POINTER TO THE LOCAL MEMORY
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
-; NOTE     - ASSUMES SCRHEIGH IS GREATER THAN 255
+; NOTE     - NONE
 ; -----------------------------------------------------------------------------
     MOVE.W  D0,-(A7)
     MOVE.W  (PLYXPOS), (A0)                  ; X POSITION
