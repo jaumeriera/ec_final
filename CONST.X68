@@ -87,9 +87,11 @@ GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
 SPWCYCLE    EQU     16                      ; NUMBER OF CICLES BETWEEN SHOTS
 
-; --- SELECT BALL STATE CONSTANTS ---------------------------------------------
+; --- BONUS CONSTANTS ---------------------------------------------------------
 
-; TODO
+BONSIDEL    EQU     SQRSIDEL                ; SIDE OF BONUS
+BONCOLOR    EQU     $0000FFFF               ; COLOR OF BONUS
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
