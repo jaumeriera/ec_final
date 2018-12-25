@@ -156,16 +156,16 @@ BALSQRCOL
     RTS
 ; -----------------------------------------------------------------------------
 BALPLOT
-; PLOTS AN ASTEROID
+; PLOTS A BALL
 ; INPUT    - A0 POINTER TO THE LOCAL MEMORY
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            DW_SET_PEN BALPENCL
-            DW_SET_FILL BALFILCL
-            MOVEM.W D1-D4,-(A7)
-            COLL_BALL_HITBOX (A0), 2(A0)
-            MOVE.B  #88,D0
-            TRAP    #15
-            MOVEM.W (A7)+,D1-D4
-            RTS
+    DW_SET_PEN BALPENCL
+    DW_SET_FILL BALFILCL
+    MOVEM.W D1-D4,-(A7)
+    COLL_BALL_HITBOX (A0), 2(A0)
+    MOVE.B  #88,D0
+    TRAP    #15
+    MOVEM.W (A7)+,D1-D4
+    RTS

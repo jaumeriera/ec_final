@@ -39,7 +39,7 @@ BONUPD
     MOVE.W  D3, D6
     MOVE.W  D4, D7
     ; GET SQAURE HITBOX COORDINATES
-    COLL_SQR_HITBOX  (A1), 2(A1)
+    COLL_BON_HITBOX  (A1), 2(A1), #BONSIDEL
     MOVE.W  D1, D0
     MOVE.W  D2, D1
     MOVE.W  D3, D2
@@ -71,4 +71,13 @@ BONPLOT
 ; MODIFIES - NONE
 ; NOTE     - NONE
 ; -----------------------------------------------------------------------------
+    DW_SET_PEN  BONPENCL
+    DW_SET_FILL BONCOLOR
+    MOVEM.W D1-D4,-(A7)
+    COLL_BON_HITBOX (A1), 2(A1), #BONSIDEL
+    MOVE.B  #88,D0
+    TRAP    #15
+    COLL_BON_HITBOX (A1), 2(A1), #BONSIDEL-BONTHICK
+    MOVE.B  #88,D0
+    TRAP    #15
     RTS

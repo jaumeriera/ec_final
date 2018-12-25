@@ -219,7 +219,7 @@ COLL_BALL_HITBOX   MACRO
 
 * -----------------------------------------------------------------------------
 COLL_SQR_HITBOX   MACRO
-* Calculate the hitbox of the ball
+* Calculate the hitbox of the square
 * Parameters : \1: square row,
 *              \2: sqaure column
 * Modifies  : D1, D2, D3, D4
@@ -232,6 +232,24 @@ COLL_SQR_HITBOX   MACRO
         ADD.W   #SQRSIDEL, D4
         MOVE.W  D1, D3
         ADD.W   #SQRSIDEL, D3
+        ENDM
+
+* -----------------------------------------------------------------------------
+COLL_BON_HITBOX   MACRO
+* Calculate the hitbox of the bonus
+* Parameters : \1: square row,
+*              \2: sqaure column
+*              \3: side lenght
+* Modifies  : D1, D2, D3, D4
+* -----------------------------------------------------------------------------
+        MOVE.W  \1, D2
+        MULU.W  \3, D2
+        MOVE.W  \2, D1
+        MULU.W  \3, D1
+        MOVE.W  D2, D4
+        ADD.W   \3, D4
+        MOVE.W  D1, D3
+        ADD.W   \3, D3
         ENDM
 
 ; =============================================================================

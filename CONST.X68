@@ -91,6 +91,8 @@ SPWCYCLE    EQU     16                      ; NUMBER OF CICLES BETWEEN SHOTS
 
 BONSIDEL    EQU     SQRSIDEL                ; SIDE OF BONUS
 BONCOLOR    EQU     $0000FFFF               ; COLOR OF BONUS
+BONPENCL    EQU     $00000000               ; PENCIN OF BONUS
+BONTHICK    EQU     10                      ; THICKNESS OF BONUS SYMBOL
 
 *~Font name~Courier New~
 *~Font size~10~
