@@ -85,7 +85,7 @@ GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
 ; --- SPAWNER CONSTANTS -------------------------------------------------------
 
-SPWCYCLE    EQU     16                      ; NUMBER OF CICLES BETWEEN SHOTS
+SPWCYCLE    EQU     $0F                      ; NUMBER OF CICLES BETWEEN SHOTS
 
 ; --- BONUS CONSTANTS ---------------------------------------------------------
 

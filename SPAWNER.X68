@@ -40,7 +40,7 @@ SPWUPD
             CMP.W   (SPWBAL), D0
             BEQ     .END
             MOVE.B  (SCRCYCCT),D0
-            AND     #SPWCYCLE,D0
+            AND     #SPWCYCLE, D0
             BNE     .END                    ; CREATE A NEW BALL
             ADD     #1, (SPWBAL)            ; UPDATE NUMBER OF BALLS THROWED
             LEA     BALINIT, A1
