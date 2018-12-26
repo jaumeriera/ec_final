@@ -96,7 +96,7 @@ BONPLOT
 
 ; -----------------------------------------------------------------------------
 BONUPDRW
-; UPDATES ALL SQUARE ROWS
+; UPDATES ALL BONUS AGENTS
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
