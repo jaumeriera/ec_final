@@ -21,13 +21,13 @@ KBDCHRDN    EQU     $28                     ; DOWN KEY
 ; --- KEYBOARD MAPPING --------------------------------------------------------
 
 KBDLEFT     EQU     KBDCHRLF                ; LEFT BUTTON
-KBDUP       EQU     KBDCHRUP                ; UP BUTTON
+KBDUP       EQU     KBDCHRUP                ; NOTHING
 KBDRIGHT    EQU     KBDCHRRT                ; RIGHT BUTTON
-KBDDOWN     EQU     KBDCHRDN                ; DOWN BUTTON
+KBDDOWN     EQU     KBDCHRDN                ; NOTHINH
 KBDFIRE1    EQU     KBDCHRSP                ; FIRE 1 BUTTON
-KBDFIRE2    EQU     KBDCHRMK                ; FIRE 2 BUTTON
-KBDFIRE3    EQU     KBDCHRSH                ; FIRE 3 BUTTON
-KBDPAUSE    EQU     KBDCHRPK                ; PAUSE BUTTON
+KBDFIRE2    EQU     KBDCHRMK                ; NOTHING
+KBDFIRE3    EQU     KBDCHRSH                ; START GAME
+KBDPAUSE    EQU     KBDCHRPK                ; NOTHING
 
 ; --- KEYBOARD BITFIELD MASKS -------------------------------------------------
 ; CONVENIENCE CONSTANTS TO ACCESS THE FOLLOWING BIT-FIELD.
@@ -37,13 +37,13 @@ KBDPAUSE    EQU     KBDCHRPK                ; PAUSE BUTTON
 ; +---+---+---+---+---+---+---+---+
 ;   |   |   |   |   |   |   |   |
 ;   |   |   |   |   |   |   |   +---------- LEFT BUTTON
-;   |   |   |   |   |   |   +-------------- UP BUTTON
+;   |   |   |   |   |   |   +-------------- NOTHING
 ;   |   |   |   |   |   +------------------ RIGHT BUTTON
-;   |   |   |   |   +---------------------- DOWN BUTTON
+;   |   |   |   |   +---------------------- NOTHINH
 ;   |   |   |   +-------------------------- FIRE 1 BUTTON
-;   |   |   +------------------------------ FIRE 2 BUTTON
-;   |   +---------------------------------- FIRE 3 BUTTON
-;   +-------------------------------------- PAUSE BUTTON
+;   |   |   +------------------------------ NOTHING
+;   |   +---------------------------------- START GAME
+;   +-------------------------------------- NOTHING
 
 KBDMSKLF    EQU     %00000001
 KBDMSKUP    EQU     %00000010
