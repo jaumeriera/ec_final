@@ -1,7 +1,7 @@
 ; =============================================================================
-; TITLE    : EXAMPLE GAME
-; AUTHOR   :
-; CREATION :
+; TITLE    : BBTAM 68000
+; AUTHOR   : JAUME RIERA GENOVAR
+; V1.0     : 26/12/2018
 ; =============================================================================
 
             ORG     $1000
@@ -19,13 +19,11 @@
             INCLUDE "BALL.X68"              ; BALL MANAGEMENT
             INCLUDE "SQUARE.X68"            ; SQUARE MANAGEMENT
             INCLUDE "BONUS.X68"             ; BONUS MANAGEMENT
-            ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
 
 ; --- INITIALIZE --------------------------------------------------------------
 
 START       JSR     SYSINIT
             JSR     STAINIT
-            ; TO DO: CALL GAME INITIALIZATION CODE HERE
 
 ; --- UPDATE ------------------------------------------------------------------
 
@@ -40,7 +38,6 @@ START       JSR     SYSINIT
 
 ; --- PLOT --------------------------------------------------------------------
 
-            ; TO DO: CALL GAME PLOT CODE HERE
             JSR     STAPLOT
             TRAP    #SCRTRAP                ; SHOW GRAPHICS
             BRA     .LOOP
