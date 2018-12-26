@@ -119,9 +119,9 @@ PLRPLOT
 
 * -----------------------------------------------------------------------------
 UPDATE_ANGLE_VALUES
-* Update the x and y player angle values. util This takes current index, get
-* contant angle values and set x and y angle depending on current index 
-* Modifies  : PLYXANG, PLYYANG
+* UPDATE THE X AND Y PLAYER ANGLE VALUES. UTIL THIS TAKES CURRENT INDEX, GET
+* CONTANT ANGLE VALUES AND SET X AND Y ANGLE DEPENDING ON CURRENT INDEX 
+* MODIFIES  : PLYXANG, PLYYANG
 * -----------------------------------------------------------------------------
         MOVEM.L A0/D0-D1, -(A7)
         LEA HUBANG, A0
@@ -140,8 +140,8 @@ UPDATE_ANGLE_VALUES
 
 * -----------------------------------------------------------------------------
 UPDATE_END_COORDINATES
-* Update the x and y end coordinates in order to draw angle 
-* Modifies  : PLYENDX, PLYENDY
+* UPDATE THE X AND Y END COORDINATES IN ORDER TO DRAW ANGLE 
+* MODIFIES  : PLYENDX, PLYENDY
 * -----------------------------------------------------------------------------
         MOVEM.L D0-D3, -(A7)
         CLR.L D0
@@ -157,34 +157,34 @@ UPDATE_END_COORDINATES
 
 * -----------------------------------------------------------------------------
 CALC_END_POINT
-* Calculate end coordinate for y angle coordinate and lengh. In order to
-* calculate end point, the fucntion calculates the number of increments of Y
-* axis to collide with the top. this function takes care of decimal divisions
-* to solve this probles always add one increment so that means that we always
-* return a point out of the screen bounds.
+* CALCULATE END COORDINATE FOR Y ANGLE COORDINATE AND LENGH. IN ORDER TO
+* CALCULATE END POINT, THE FUCNTION CALCULATES THE NUMBER OF INCREMENTS OF Y
+* AXIS TO COLLIDE WITH THE TOP. THIS FUNCTION TAKES CARE OF DECIMAL DIVISIONS
+* TO SOLVE THIS PROBLES ALWAYS ADD ONE INCREMENT SO THAT MEANS THAT WE ALWAYS
+* RETURN A POINT OUT OF THE SCREEN BOUNDS.
 *
-* Parameters: D0.B: Y angle coordinate
-*             D1.B: X angle coordinate
-*             D2.W: Lenght 
-* Modifies:   D0, D1, D2, D3
-* Outpu :     D0.W: Y end coordinate
-*             D1.W: X end coordinate
-*             D2, D3: cleaned registers
+* PARAMETERS: D0.B: Y ANGLE COORDINATE
+*             D1.B: X ANGLE COORDINATE
+*             D2.W: LENGHT 
+* MODIFIES:   D0, D1, D2, D3
+* OUTPU :     D0.W: Y END COORDINATE
+*             D1.W: X END COORDINATE
+*             D2, D3: CLEANED REGISTERS 
 * -----------------------------------------------------------------------------
         CLR.L D3
         MOVE.B D0, D3
         BYTE_ABSOLUTE_VALUE
         DIVU.W D0, D2
-        ; Convert to integer
+        ; CONVERT TO INTEGER
         ANDI.L #$0000FFFF, D2
         ADDI.L #1, D2
         EXT.W D1
         MULS.W D1, D2                   
         MOVE.W D2, D1
-        ADD.W (PLYXPOS), D1             ; now D1 contains X coordinate
+        ADD.W (PLYXPOS), D1             ; NOW D1 CONTAINS X COORDINATE
         MOVE.W #0, D0
         EXT.W D3
-        ADD.W D3, D0                    ; now D0 contains Y coordinate
+        ADD.W D3, D0                    ; NOW D0 CONTAINS Y COORDINATE
         CLR.L D2
         CLR.L D3
         RTS
