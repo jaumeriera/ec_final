@@ -91,9 +91,9 @@ STAPLAYU
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            JSR PLRUPD
-            JSR SPWUPD
-            BRA AGLUPD
+    JSR SPWUPD
+    JSR PLRUPD
+    BRA AGLUPD
 
 ; -----------------------------------------------------------------------------
 STAPLAYP

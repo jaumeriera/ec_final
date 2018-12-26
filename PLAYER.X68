@@ -23,6 +23,7 @@ PLRUPD
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
         MOVE.L D0, -(A7)
+        JSR UPDATE_ANGLE_VALUES
         MOVE.B  (SPWON), D0
         CMP.B   #0, D0
         BNE     .END
