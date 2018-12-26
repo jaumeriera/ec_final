@@ -77,7 +77,7 @@ SQRSPW
 .END
     MOVEM.L (A7)+,A0-A1/D0-D7
     RTS
-.BONSPW          DS.W    1       ; VAR TO TAKE CARE OF SPAWNED BONUS
+.BONSPW          DS.W    1          ; VAR TO TAKE CARE OF SPAWNED BONUS
 
 ; -----------------------------------------------------------------------------
 SQRUPDRW
@@ -146,7 +146,7 @@ SQRUPD
     BLT     .NEXT
     CMP.W   D6, D0
     BGT     .NEXT
-    SUB.W   #1, 4(A1)           ; COLLISION
+    SUB.W   #1, 4(A1)               ; COLLISION
     CMP.W   #0, 4(A1)
     BEQ     .KILL
 .NEXT
