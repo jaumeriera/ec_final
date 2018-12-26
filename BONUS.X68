@@ -56,9 +56,14 @@ BONUPD
     BLT     .NEXT
     CMP.W   D6, D0
     BGT     .NEXT
-    ADD.W   #1, (PLYNBAL)           ; COLLISION
+    ADD.W   #1, (TKNBON)           ; COLLISION
     MOVE.L  A1, A0
     JSR     AGLKILL
+    BRA     .END
+.NEXT
+    MOVE.W  #BALTYPE, D0
+    JSR     DMMNEXTO
+    BRA     .LOOP
 .END
     MOVEM.L (A7)+,A0-A1/D0-D7 
     RTS
@@ -71,13 +76,20 @@ BONPLOT
 ; MODIFIES - NONE
 ; NOTE     - NONE
 ; -----------------------------------------------------------------------------
+    MOVEM.L D0-D5,-(A7)
     DW_SET_PEN  BONPENCL
     DW_SET_FILL BONCOLOR
-    MOVEM.W D1-D4,-(A7)
-    COLL_BON_HITBOX (A1), 2(A1), #BONSIDEL
+    COLL_BON_HITBOX (A0), 2(A0), #BONSIDEL
     MOVE.B  #88,D0
     TRAP    #15
-    COLL_BON_HITBOX (A1), 2(A1), #BONSIDEL-BONTHICK
+    MOVE.W  D1, D5
+    DW_SET_FILL BONPENCL
+    MOVE.W  D5, D1    
+    ADD.W   #BONTHICK, D1
+    ADD.W   #BONTHICK, D2
+    SUB.W   #BONTHICK, D3
+    SUB.W   #BONTHICK, D4
     MOVE.B  #88,D0
     TRAP    #15
+    MOVEM.L (A7)+,D0-D5
     RTS

@@ -42,6 +42,7 @@ SQRSPW
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
     MOVEM.L A0-A1/D0-D7,-(A7)
+    CLR.W   (.BONSPW)
     MOVE.W  #SCRWIDTH, D2
     DIVU    #SQRSIDEL, D2
     JSR     UTLRAND
@@ -49,7 +50,7 @@ SQRSPW
 .LOOP                               ; LOOP WHILE CAN CREATE SQUARES
     SUB.W   #1, D2
     ROR.B   #1, D6
-    BCC     .ISLAST
+    BCC     .SPWBON
     MOVE.W  #SQRTYPE,D0
     MOVE.W  #0,D1
     MOVE.W  (PLYROUND), D3
@@ -60,9 +61,22 @@ SQRSPW
 .ISLAST
     CMP.W   #0, D2
     BNE     .LOOP
-
+    BRA .END
+.SPWBON
+    CMP.W   #0, (.BONSPW)
+    BNE     .ISLAST
+    ADD.W   #1, (.BONSPW)
+    MOVE.W  #BONTYPE, D0
+    MOVE.W  #0,D1
+    LEA     BONINIT, A1
+    LEA     BONUPD, A2
+    LEA     BONPLOT, A3
+    JSR     AGLADD
+    BRA .ISLAST
+.END
     MOVEM.L (A7)+,A0-A1/D0-D7
     RTS
+.BONSPW          DS.W    1       ; VAR TO TAKE CARE OF SPAWNED BONUS
 
 ; -----------------------------------------------------------------------------
 SQRUPDRW

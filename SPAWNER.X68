@@ -22,6 +22,7 @@ SPWCLR
     CLR.B (SPWON)
     CLR.W (SPWBAL)
     CLR.W (SPWLAN)
+    CLR.W (TKNBON)
     RTS
 
 ; -----------------------------------------------------------------------------

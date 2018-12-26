@@ -28,9 +28,13 @@ SPWNXX      DS.W    1       ; NEXT PLAYER X COORDINATE
 STACUR      DS.W    1       ; CURRENT STATE
 STANEXT     DS.W    1       ; NEXT STATE
 
+; --- STAT VARS --------------------------------------------------------------
+
+TKNBON      DS.W    1       ; NUMBER OF BONUS TAKEN IN ONE SHOT
+
 ; --- UTILITY VARIABLES ------------------------------------------------------
 
-UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
+UTLRNDIX    DS.B    1       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
-AUXVARONE   DS.L    1                       ; AUXILIAR VARIABLE
-AUXVARTWO   DS.L    1                       ; AUCILIAR VARIABLE
+AUXVARONE   DS.L    1       ; AUXILIAR VARIABLE
+AUXVARTWO   DS.L    1       ; AUCILIAR VARIABLE
