@@ -11,13 +11,13 @@ SYSINIT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVE.L  (A7)+,A0                ; GET RETURN ADDRESS
-            JSR     KBDINIT                 ; INIT KEYBOARD
-            JSR     SCRINIT                 ; INIT SCREEN
-            JSR     DMMINIT                 ; INIT DYNAMIC MEMORY
-            ANDI.W  #$DFFF,SR               ; SWITCH TO USER
-            MOVE.L  A0,-(A7)                ; PUT RETURN ADDRESS
-            RTS
+    MOVE.L  (A7)+,A0                ; GET RETURN ADDRESS
+    JSR     KBDINIT                 ; INIT KEYBOARD
+    JSR     SCRINIT                 ; INIT SCREEN
+    JSR     DMMINIT                 ; INIT DYNAMIC MEMORY
+    ANDI.W  #$DFFF,SR               ; SWITCH TO USER
+    MOVE.L  A0,-(A7)                ; PUT RETURN ADDRESS
+    RTS
 
 ; =============================================================================
 ; SCREEN MANAGEMENT (SYSTEM CODE)
@@ -30,42 +30,42 @@ SCRINIT
 ; OUTPUT   - NONE
 ; MODIFIES - D0,D1,D2,D3
 ; -----------------------------------------------------------------------------
-            MOVEM.L D0-D3,-(A7)
-            ; - DISABLE ALL AUTO-IRQ
-            INT_DIS_AUTO_IRQ
-            ; - DISABLE INTS (SET INT BITS IN SR TO 111)
-            INT_SET_LEVEL 7
-            ; - INSTALL SCRUPD INTO TRAP SCRTRAP
-            MOVE.L  #SCRUPD,($80+SCRTRAP*4)
-            ; - SET RESOLUTION TO SCRWIDTH X SCRHEIGHT
-            SC_SET_RES SCRWIDTH, SCRHEIGH
-            ; - SET WINDOWED MODE
-            SC_SET_WINDOWED
-            ; - CLEAR VISIBLE BUFFER
-            SC_CLEAR
-            ; - ENABLE DOUBLE BUFFER
-            SC_ENABLE_DB
-            ; - CLEAR HIDDEN BUFFER
-            SC_SWAP_DB
-            SC_CLEAR
-            SC_SWAP_DB
-            ; - INSTALL SCRISR FOR IRQ SCRIRQ (IRQ INTERRUPT VECTOR BEGINS
-            ;   AT $60. INSTALLATION IS SIMILAR TO TRAP INSTALLATION)
-            MOVE.L  #SCRISR,($60+SCRIRQ*4)
-            MOVE.B  #32, D0
-            MOVE.B  #6, D1
-            MOVE.B  #$81, D2
-            MOVE.L  #SCRTIM, D3
-            TRAP    #15
-            ; - CLEAR SCRINTCT AND SCRCYCCT
-            CLR.B   (SCRINTCT)
-            CLR.B   (SCRCYCCT)
-            ; - ENABLE ALL AUTO IRQ
-            ;INT_ENA_AUTO_IRQ
-            ; - ENABLE INTS (SET INT BITS IN SR TO 000)
-            INT_SET_LEVEL 0
-            MOVEM.L (A7)+, D0-D3
-            RTS
+    MOVEM.L D0-D3,-(A7)
+    ; - DISABLE ALL AUTO-IRQ
+    INT_DIS_AUTO_IRQ
+    ; - DISABLE INTS (SET INT BITS IN SR TO 111)
+    INT_SET_LEVEL 7
+    ; - INSTALL SCRUPD INTO TRAP SCRTRAP
+    MOVE.L  #SCRUPD,($80+SCRTRAP*4)
+    ; - SET RESOLUTION TO SCRWIDTH X SCRHEIGHT
+    SC_SET_RES SCRWIDTH, SCRHEIGH
+    ; - SET WINDOWED MODE
+    SC_SET_WINDOWED
+    ; - CLEAR VISIBLE BUFFER
+    SC_CLEAR
+    ; - ENABLE DOUBLE BUFFER
+    SC_ENABLE_DB
+    ; - CLEAR HIDDEN BUFFER
+    SC_SWAP_DB
+    SC_CLEAR
+    SC_SWAP_DB
+    ; - INSTALL SCRISR FOR IRQ SCRIRQ (IRQ INTERRUPT VECTOR BEGINS
+    ;   AT $60. INSTALLATION IS SIMILAR TO TRAP INSTALLATION)
+    MOVE.L  #SCRISR,($60+SCRIRQ*4)
+    MOVE.B  #32, D0
+    MOVE.B  #6, D1
+    MOVE.B  #$81, D2
+    MOVE.L  #SCRTIM, D3
+    TRAP    #15
+    ; - CLEAR SCRINTCT AND SCRCYCCT
+    CLR.B   (SCRINTCT)
+    CLR.B   (SCRCYCCT)
+    ; - ENABLE ALL AUTO IRQ
+    ;INT_ENA_AUTO_IRQ
+    ; - ENABLE INTS (SET INT BITS IN SR TO 000)
+    INT_SET_LEVEL 0
+    MOVEM.L (A7)+, D0-D3
+    RTS
 
 ; -----------------------------------------------------------------------------
 SCRISR
@@ -74,9 +74,9 @@ SCRISR
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            ADDQ.B  #1,(SCRINTCT)           ; UPDATE INT FLAG/COUNTER
-            ADDQ.B  #1,(SCRCYCCT)           ; UPDATE CYCLE COUNTER
-            RTE
+    ADDQ.B  #1,(SCRINTCT)           ; UPDATE INT FLAG/COUNTER
+    ADDQ.B  #1,(SCRCYCCT)           ; UPDATE CYCLE COUNTER
+    RTE
 
 ; -----------------------------------------------------------------------------
 SCRUPD
@@ -86,10 +86,10 @@ SCRUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            ; UPDATE DOUBLE BUFFER AND CLEAR HIDDEN BUFFER
-            SC_SWAP_DB
-            SC_CLEAR
-            RTE
+    ; UPDATE DOUBLE BUFFER AND CLEAR HIDDEN BUFFER
+    SC_SWAP_DB
+    SC_CLEAR
+    RTE
 
 ; =============================================================================
 ; KEYBOARD MANAGEMENT (SYSTEM CODE)
@@ -102,10 +102,10 @@ KBDINIT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            CLR.B   (KBDVAL)                ; INIT VARS
-            CLR.B   (KBDEDGE)
-            MOVE.L  #KBDREAD,($80+KBDTRAP*4) ; INSTALL
-            RTS
+    CLR.B   (KBDVAL)                 ; INIT VARS
+    CLR.B   (KBDEDGE)
+    MOVE.L  #KBDREAD,($80+KBDTRAP*4) ; INSTALL
+    RTS
 
 ; -----------------------------------------------------------------------------
 KBDREAD
@@ -117,26 +117,26 @@ KBDREAD
 ; OUTPUT   - (KBDVAL) AND (KBDEDGE)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVEM.L D0-D7, -(A7)
-            
-            ; LOAD MOVEMENT KEYS         
-            KBD_LOAD_KEYS KBDLEFT, KBDRIGHT, KBDUP, KBDDOWN
-            ; UPDATE KBDVAL AND KBDEDGE DEPENDING ON KEY STATE
-            KBD_UPDT_VARS 24, KBDMSKLF
-            KBD_UPDT_VARS 16, KBDMSKRT
-            KBD_UPDT_VARS 8, KBDMSKUP
-            KBD_UPDT_VARS 0, KBDMSKDN
+    MOVEM.L D0-D7, -(A7)
+    
+    ; LOAD MOVEMENT KEYS         
+    KBD_LOAD_KEYS KBDLEFT, KBDRIGHT, KBDUP, KBDDOWN
+    ; UPDATE KBDVAL AND KBDEDGE DEPENDING ON KEY STATE
+    KBD_UPDT_VARS 24, KBDMSKLF
+    KBD_UPDT_VARS 16, KBDMSKRT
+    KBD_UPDT_VARS 8, KBDMSKUP
+    KBD_UPDT_VARS 0, KBDMSKDN
 
-            ; LOAD OTHER KEYS
-            KBD_LOAD_KEYS KBDFIRE1, KBDFIRE2, KBDFIRE3, KBDPAUSE
-            ; UPDATE KBDVAL AND KBDEDGE DEPENDING ON KEY STATE
-            KBD_UPDT_VARS 24, KBDMSKF1
-            KBD_UPDT_VARS 16, KBDMSKF2
-            KBD_UPDT_VARS 8, KBDMSKF3
-            KBD_UPDT_VARS 0, KBDMSKPS
+    ; LOAD OTHER KEYS
+    KBD_LOAD_KEYS KBDFIRE1, KBDFIRE2, KBDFIRE3, KBDPAUSE
+    ; UPDATE KBDVAL AND KBDEDGE DEPENDING ON KEY STATE
+    KBD_UPDT_VARS 24, KBDMSKF1
+    KBD_UPDT_VARS 16, KBDMSKF2
+    KBD_UPDT_VARS 8, KBDMSKF3
+    KBD_UPDT_VARS 0, KBDMSKPS
 
-            MOVEM.L (A7)+, D0-D7
-            RTE
+    MOVEM.L (A7)+, D0-D7
+    RTE
 
 ; =============================================================================
 ; DYNAMIC MEMORY MANAGEMENT (SYSTEM CODE)
