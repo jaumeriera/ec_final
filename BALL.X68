@@ -17,13 +17,13 @@ BALINIT
 ; -----------------------------------------------------------------------------
     MOVE.W  D0,-(A7)
     MOVE.W  (PLYXPOS), (A0)                  ; X POSITION
-    MOVE.W  #HUBFLRYH-NORRADI, 2(A0)        ; Y POSITION
+    MOVE.W  #HUBFLRYH-NORRADI, 2(A0)         ; Y POSITION
     MOVE.B  (PLYXANG), D0
     EXT.W   D0
-    MOVE.W  D0, 4(A0)                       ; X SPEED
+    MOVE.W  D0, 4(A0)                        ; X SPEED
     MOVE.B  (PLYYANG), D0
     EXT.W   D0
-    MOVE.W  D0, 6(A0)                 ; Y SPEED
+    MOVE.W  D0, 6(A0)                        ; Y SPEED
     MOVE.W  (A7)+,D0
     RTS
 
@@ -35,7 +35,7 @@ BALUPD
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
     MOVE.L  D0, -(A7)
-    MOVE.W  4(A0),D0                ; UPDATE COORDINATES
+    MOVE.W  4(A0),D0                          ; UPDATE COORDINATES
     ADD.W   D0,(A0)
     MOVE.W  6(A0),D0
     ADD.W   D0,2(A0)
@@ -73,7 +73,7 @@ BALUPD
     MOVE.W  (PLYNBAL), D0
     CMP     (SPWLAN), D0
     BNE     .KILL
-    JSR     SQRNWRND                    ; ADVANCE ONE ROUND
+    JSR     SQRNWRND                          ; ADVANCE ONE ROUND
     MOVE.W  (TKNBON), D0
     ADD.W   D0, (PLYNBAL)
     JSR     SPWCLR
@@ -91,9 +91,9 @@ BALSQRCOL
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-    MOVEM.L D0/A0-A1, -(A7)
+    MOVEM.L D0-D7/A0-A1, -(A7)
     MOVE.L  A0, A1
-    MOVE.W  #SQRTYPE, D0                ; LOOP THROUGH ALL SQUARES
+    MOVE.W  #SQRTYPE, D0                      ; LOOP THROUGH ALL SQUARES
     JSR     DMMFRSTO
 .LOOP
     CMP.L   #0, A0
@@ -157,7 +157,7 @@ BALSQRCOL
     JSR     DMMNEXTO
     BRA     .LOOP
 .END
-    MOVEM.L (A7)+, D0/A0-A1
+    MOVEM.L (A7)+, D0-D7/A0-A1
     RTS
 ; -----------------------------------------------------------------------------
 BALPLOT
@@ -166,11 +166,11 @@ BALPLOT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+    MOVEM.W D0-D4,-(A7)
     DW_SET_PEN BALPENCL
     DW_SET_FILL BALFILCL
-    MOVEM.W D1-D4,-(A7)
     COLL_BALL_HITBOX (A0), 2(A0)
     MOVE.B  #88,D0
     TRAP    #15
-    MOVEM.W (A7)+,D1-D4
+    MOVEM.W (A7)+,D0-D4
     RTS
