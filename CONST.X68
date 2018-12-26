@@ -8,7 +8,6 @@ STANONE     EQU     -1                      ; PLACEHOLDER TO FORCE CHANGE
 STAINTR     EQU     0                       ; INTRO/PRESS SPACE STATE
 STAPLAY     EQU     1                       ; NORMAL GAME STATE
 STAGOVR     EQU     2                       ; GAME OVER STATE
-;STASELB     EQU     3                       ; SELECT BALL STATE
 
 ; --- AGENT TYPES -------------------------------------------------------------
 
@@ -24,17 +23,9 @@ BALPENCL    EQU     $00FFFFFF               ; BALL PEN COLOR
 BALFILCL    EQU     $0000FF00               ; BALL FIL COLOR
 BALZONE     EQU     5                       ; ZONE WHERE BOUNCE ON X AXIS
 
-; --- SMALL BALL CONSTANTS ---------------------------------------------------
-
-SMLRADI     EQU     10                       ; RADIOUS OF SMALL BALL
-
 ; --- NORMAL BALL CONSTANTS --------------------------------------------------
 
 NORRADI     EQU     20                      ; RADIOUS OF NORMAL BALL
-
-; --- BIG BALL CONSTANTS -----------------------------------------------------
-
-BIGRADI     EQU     30                      ; RADIOUS OF BIG BALL
 
 ; --- SQUARE CONSTANTS -------------------------------------------------------
 
