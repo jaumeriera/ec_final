@@ -31,6 +31,7 @@ SQRNWRND
 ; -----------------------------------------------------------------------------
     ADD.W   #1, (PLYROUND)
     JSR     SQRUPDRW
+    JSR     BONUPDRW
     JSR     SQRSPW
     RTS
 

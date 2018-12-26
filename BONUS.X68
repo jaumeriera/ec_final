@@ -93,3 +93,23 @@ BONPLOT
     TRAP    #15
     MOVEM.L (A7)+,D0-D5
     RTS
+
+; -----------------------------------------------------------------------------
+BONUPDRW
+; UPDATES ALL SQUARE ROWS
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+    MOVEM.L A0-A1/D0-D7,-(A7)
+    MOVE.W  #BONTYPE,D0             ; LOOP THROUGH ALL BONUS
+    JSR     DMMFRSTO
+.LOOP
+    CMP.L   #0,A0
+    BEQ     .END
+    ADD.W   #1, 8(A0)
+    JSR     DMMNEXTO
+    BRA     .LOOP
+.END
+    MOVEM.L (A7)+,A0-A1/D0-D7
+    RTS
